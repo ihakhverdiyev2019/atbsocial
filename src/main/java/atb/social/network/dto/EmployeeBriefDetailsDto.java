@@ -1,6 +1,9 @@
 package atb.social.network.dto;
 
 public class EmployeeBriefDetailsDto {
+
+    private int id;
+
     private String name;
 
     private String surname;
@@ -11,6 +14,15 @@ public class EmployeeBriefDetailsDto {
 
     public  EmployeeBriefDetailsDto(){
 
+    }
+
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {

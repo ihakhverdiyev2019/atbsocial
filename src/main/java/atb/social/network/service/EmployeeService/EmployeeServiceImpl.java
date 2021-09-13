@@ -58,6 +58,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                     if(employeeModels.get(t).getDepartmentId()==strNumber) {
 
                         EmployeeBriefDetailsDto employeeBriefDetailsDto = new EmployeeBriefDetailsDto();
+                        employeeBriefDetailsDto.setId(employeeModels.get(t).getId());
                         employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
                         employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
                         employeeBriefDetailsDto.setPosition(employeeModels.get(t).getPosition());
