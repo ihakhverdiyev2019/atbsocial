@@ -44,18 +44,20 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
             for(int i =0;i<employeeModels.size();i++){
 
-                depId.add(employeeModels.get(i).getDepartmentId());
+                depId.add(employeeModels.get(i).getSubDepartment());
             }
 
             HashSet<Integer> hset = new HashSet<>(depId);
+            System.out.println(hset.size());
+            System.out.println(hset);
 
             for(Integer strNumber : hset){
                 EmployeeBriefDto employeeBriefDto  = new EmployeeBriefDto();
-                employeeBriefDto.setSubDepartmentName(bankDepartmentRepository.findById(strNumber).get().getDepartmentName());
+                employeeBriefDto.setSubDepartmentName(subDepartmentRepository.findById(strNumber).get().getName());
                 List<EmployeeBriefDetailsDto> employeeBriefDetailsDtos = new ArrayList<>();
 
                 for(int t = 0 ;t<employeeModels.size();t++){
-                    if(employeeModels.get(t).getDepartmentId()==strNumber) {
+                    if(employeeModels.get(t).getSubDepartment()==strNumber) {
 
                         EmployeeBriefDetailsDto employeeBriefDetailsDto = new EmployeeBriefDetailsDto();
                         employeeBriefDetailsDto.setId(employeeModels.get(t).getId());
