@@ -32,7 +32,7 @@ public class BankDepartmentController {
 
 
 
-    @RequestMapping(value = "/department/{id}" , method = RequestMethod.POST)
+    @RequestMapping(value = "/departments/{id}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches(@PathVariable("id") String id) throws Exception {
         List<BankDepartmenModel> departmentByBranchId = new ArrayList<>();
         System.out.println(id);

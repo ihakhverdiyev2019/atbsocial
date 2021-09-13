@@ -45,7 +45,7 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(value = "/employee/{empId}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/{empId}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getEmployeeDetails(@PathVariable("empId") String empId) throws Exception {
         EmployeeDto employeeDto = null;
         try{
