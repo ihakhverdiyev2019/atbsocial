@@ -1,9 +1,8 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.EmployeeBriefDto;
 import atb.social.network.dto.EmployeeDto;
-import atb.social.network.model.BankBranchModel;
-import atb.social.network.model.EmployeeModel;
-import atb.social.network.model.SubDepartmentModel;
+
 import atb.social.network.service.EmployeeService.EmployeeService;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ public class EmployeeController {
 
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllEmployees(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
-        List<EmployeeModel> employeeModels = new ArrayList<>();
+        List<EmployeeBriefDto> employeeModels = new ArrayList<>();
         try{
 
             employeeModels  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));

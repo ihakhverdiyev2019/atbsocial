@@ -1,5 +1,7 @@
 package atb.social.network.service.EmployeeService;
 
+import atb.social.network.dto.EmployeeBriefDetailsDto;
+import atb.social.network.dto.EmployeeBriefDto;
 import atb.social.network.dto.EmployeeDto;
 import atb.social.network.model.EmployeeModel;
 import atb.social.network.repository.BankBranchRepository;
@@ -9,6 +11,8 @@ import atb.social.network.repository.SubDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 @Service
@@ -29,15 +33,49 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
 
     @Override
-    public List<EmployeeModel> getEmployeeBrief(int branchId, int departmentId) throws Exception {
+    public List<EmployeeBriefDto> getEmployeeBrief(int branchId, int departmentId) throws Exception {
         List<EmployeeModel> employeeModels=null;
+        List<Integer> depId = new ArrayList<>();
+
+        List<EmployeeBriefDto> employeeBriefDtos = new ArrayList<>();
+
         try {
             employeeModels= employeeRepository.findAllByBranchIdAndDepartmentId(branchId,departmentId);
+
+            for(int i =0;i<employeeModels.size();i++){
+
+                depId.add(employeeModels.get(i).getDepartmentId());
+            }
+
+            HashSet<Integer> hset = new HashSet<>(depId);
+
+            for(Integer strNumber : hset){
+                EmployeeBriefDto employeeBriefDto  = new EmployeeBriefDto();
+                employeeBriefDto.setSubDepartmentName(bankDepartmentRepository.findById(strNumber).get().getDepartmentName());
+                List<EmployeeBriefDetailsDto> employeeBriefDetailsDtos = new ArrayList<>();
+                for(int t = 0 ;t<employeeModels.size();t++){
+                    if(employeeModels.get(t).getDepartmentId()==strNumber) {
+
+                        EmployeeBriefDetailsDto employeeBriefDetailsDto = new EmployeeBriefDetailsDto();
+                        employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
+                        employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
+                        employeeBriefDetailsDto.setPosition(employeeModels.get(t).getPosition());
+                        employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
+
+                        employeeBriefDetailsDtos.add(employeeBriefDetailsDto);
+                    }
+
+                }
+
+                employeeBriefDtos.add(employeeBriefDto);
+
+            }
+
 
         }catch (Exception e){
             throw  new Exception(e.getMessage());
         }
-        return employeeModels;
+        return employeeBriefDtos;
     }
 
 
