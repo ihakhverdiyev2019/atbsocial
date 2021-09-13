@@ -69,6 +69,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 }
 
                 employeeBriefDto.setEmployeeBriefDetailsDtos(employeeBriefDetailsDtos);
+                employeeBriefDtos.add(employeeBriefDto);
 
             }
 
