@@ -53,6 +53,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 EmployeeBriefDto employeeBriefDto  = new EmployeeBriefDto();
                 employeeBriefDto.setSubDepartmentName(bankDepartmentRepository.findById(strNumber).get().getDepartmentName());
                 List<EmployeeBriefDetailsDto> employeeBriefDetailsDtos = new ArrayList<>();
+
                 for(int t = 0 ;t<employeeModels.size();t++){
                     if(employeeModels.get(t).getDepartmentId()==strNumber) {
 
@@ -67,7 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
                 }
 
-                employeeBriefDtos.add(employeeBriefDto);
+                employeeBriefDto.setEmployeeBriefDetailsDtos(employeeBriefDetailsDtos);
 
             }
 
