@@ -17,12 +17,12 @@ public class NewsServiceImpl implements NewsService {
 
     @Override
     public List<NewsModel> getAllNews(int count,int page) throws Exception {
-        List<NewsModel> newsModels;
         List<NewsModel> newsModelsFilter=new ArrayList<>();
 
         try{
-            newsModels = newsRepository.findAll();
-            for(int i = (page-1)*count;i<page*count;i++){
+            List<NewsModel> newsModels = newsRepository.findAll();
+
+            for(int i = (page-1)*count ; i<page*count ; i++){
 
                 newsModelsFilter.add(newsModels.get(i));
 
