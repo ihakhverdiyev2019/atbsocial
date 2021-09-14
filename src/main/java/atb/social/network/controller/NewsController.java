@@ -6,10 +6,7 @@ import atb.social.network.service.News.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +25,11 @@ public class NewsController {
 
 
     @RequestMapping(value = "/news" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllNews() throws Exception {
+    public ResponseEntity<Object> getAllNews(@RequestParam String count,@RequestParam String page) throws Exception {
         List<NewsModel> allNews = new ArrayList<>();
         try{
 
-            allNews  = newsService.getAllNews();
+            allNews  = newsService.getAllNews(Integer.parseInt(count),Integer.parseInt(page));
 
 
         }catch (Exception e){
@@ -47,7 +44,7 @@ public class NewsController {
 
 
     @RequestMapping(value = "/news/{id}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllNews(@PathVariable("id") String nId) throws Exception {
+    public ResponseEntity<Object> getAllNewsById(@PathVariable("id") String nId) throws Exception {
         NewsModel newsModel;
         try{
 
