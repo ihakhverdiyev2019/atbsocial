@@ -46,7 +46,7 @@ public class NewsController {
     }
 
 
-    @RequestMapping(value = "/news{id}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/news/{id}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllNews(@PathVariable("id") String nId) throws Exception {
         NewsModel newsModel;
         try{
