@@ -25,9 +25,11 @@ public class NewsController {
 
 
     @RequestMapping(value = "/news" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllNews(@RequestParam("count") String count,@RequestParam("page") String page) throws Exception {
-        List<NewsModel> allNews = new ArrayList<>();
+    public ResponseEntity<Object> getAllNews(@RequestParam String count,@RequestParam String page) throws Exception {
+        List<NewsModel> allNews;
         try{
+            System.out.println(count);
+            System.out.println(page);
 
             allNews  = newsService.getAllNews(Integer.parseInt(count),Integer.parseInt(page));
 
