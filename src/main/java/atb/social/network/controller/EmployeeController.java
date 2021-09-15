@@ -84,7 +84,7 @@ public class EmployeeController {
     }
 
 
-    @RequestMapping(value = "/employees/save" , method = RequestMethod.GET)
+    @RequestMapping(value = "/employees/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
         try{
 
