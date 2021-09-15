@@ -1,8 +1,10 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.EmployeeBirhtDto;
 import atb.social.network.dto.EmployeeBriefDto;
 import atb.social.network.dto.EmployeeDto;
 
+import atb.social.network.dto.EmployeesBirthDayList;
 import atb.social.network.service.EmployeeService.EmployeeService;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +63,26 @@ public class EmployeeController {
         }
 
         return new ResponseEntity(employeeDto, HttpStatus.OK);
+
+
+
+    }
+
+
+    @RequestMapping(value = "/employees/birthday" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getEmployeeBirht() throws Exception {
+
+        EmployeesBirthDayList employeesBirthDayList;
+
+        try{
+
+            employeesBirthDayList  = employeeService.getEmployeeBirth();
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(employeesBirthDayList, HttpStatus.OK);
 
 
 

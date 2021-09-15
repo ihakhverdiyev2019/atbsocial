@@ -1,8 +1,6 @@
 package atb.social.network.service.EmployeeService;
 
-import atb.social.network.dto.EmployeeBriefDetailsDto;
-import atb.social.network.dto.EmployeeBriefDto;
-import atb.social.network.dto.EmployeeDto;
+import atb.social.network.dto.*;
 import atb.social.network.model.EmployeeModel;
 import atb.social.network.repository.BankBranchRepository;
 import atb.social.network.repository.BankDepartmentRepository;
@@ -11,7 +9,9 @@ import atb.social.network.repository.SubDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -114,6 +114,53 @@ public class EmployeeServiceImpl implements EmployeeService  {
             throw  new Exception(e.getMessage());
         }
         return employeeDto;
+    }
+
+    @Override
+    public   EmployeesBirthDayList  getEmployeeBirth() throws Exception {
+
+
+        EmployeesBirthDayList employeesBirthDayList = new EmployeesBirthDayList();
+        List<EmployeeBirhtDto> employeeBirhtDtos = new ArrayList<>();
+
+
+        try {
+
+
+            String pattern = " dd/MM/yyyy";
+            String patternShow = " dd.MM.yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            SimpleDateFormat simpleDateFormatShow = new SimpleDateFormat(patternShow);
+
+            String date = simpleDateFormat.format(new Date());
+            System.out.println(date);
+            employeesBirthDayList.setDate(simpleDateFormatShow.format(new Date()));
+
+
+            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirhtDate(date);
+            if(employeeModels.size()>0) {
+                for (int i = 0; i < employeeModels.size(); i++) {
+                    EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();
+                    employeeBirhtDto.setId(employeeModels.get(i).getId());
+                    employeeBirhtDto.setName(employeeModels.get(i).getName());
+                    employeeBirhtDto.setSurname(employeeModels.get(i).getSurname());
+                    employeeBirhtDto.setBranch(bankBranchRepository.findById(employeeModels.get(i).getBranchId()).get().getBranchName());
+
+                    employeeBirhtDtos.add(employeeBirhtDto);
+                }
+            }
+            employeesBirthDayList.setEmployeeBirhtDtoList(employeeBirhtDtos);
+
+
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+
+
+
+
+        return employeesBirthDayList;
     }
 
 
