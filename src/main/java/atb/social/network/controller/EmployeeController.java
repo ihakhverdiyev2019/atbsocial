@@ -84,6 +84,7 @@ public class EmployeeController {
     }
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
         try{
