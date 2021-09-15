@@ -1,19 +1,14 @@
 package atb.social.network.controller;
 
-import atb.social.network.dto.EmployeeBirhtDto;
-import atb.social.network.dto.EmployeeBriefDto;
-import atb.social.network.dto.EmployeeDto;
+import atb.social.network.dto.*;
 
-import atb.social.network.dto.EmployeesBirthDayList;
+import atb.social.network.model.EmployeeModel;
 import atb.social.network.service.EmployeeService.EmployeeService;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -83,6 +78,38 @@ public class EmployeeController {
         }
 
         return new ResponseEntity(employeesBirthDayList, HttpStatus.OK);
+
+
+
+    }
+
+
+    @RequestMapping(value = "/employees/save" , method = RequestMethod.GET)
+    public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
+        try{
+
+            EmployeeModel employeeModel = new EmployeeModel();
+            employeeModel.setBirhtDate(employee.getBirthDay());
+            employeeModel.setBranchId(employee.getBranchId());
+            employeeModel.setBirthDayWithoutYear(employee.getBirthDay());
+            employeeModel.setBirhtDate(employee.getBirthDay());
+            employeeModel.setEmail(employee.getEmail());
+            employeeModel.setInternalNumber(employee.getInternalNum());
+            employeeModel.setName(employee.getName());
+            employeeModel.setPhoneNumber(employee.getNumber());
+            employeeModel.setPhotoBase64(employee.getPhoto());
+            employeeModel.setPosition(employee.getPosition());
+            employeeModel.setStartJobDate(employee.getStartDate());
+            employeeModel.setSurname(employee.getSurname());
+            employeeModel.setSubDepartment(employee.getSubDepartId());
+
+          employeeService.save(employeeModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
 
 
 

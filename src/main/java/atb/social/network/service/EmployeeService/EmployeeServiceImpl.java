@@ -163,6 +163,11 @@ public class EmployeeServiceImpl implements EmployeeService  {
         return employeesBirthDayList;
     }
 
+    @Override
+    public void save(EmployeeModel employeeModel) {
+        employeeRepository.save(employeeModel);
+    }
+
 
 }
 
