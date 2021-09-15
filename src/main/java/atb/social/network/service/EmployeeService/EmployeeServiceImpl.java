@@ -127,7 +127,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
         try {
 
 
-            String pattern = " dd/MM/yyyy";
+            String pattern = " dd/MM/";
             String patternShow = " dd.MM.yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             SimpleDateFormat simpleDateFormatShow = new SimpleDateFormat(patternShow);
@@ -137,7 +137,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             employeesBirthDayList.setDate(simpleDateFormatShow.format(new Date()));
 
 
-            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirhtDate(date);
+            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirthDayWithoutYear(date);
             if(employeeModels.size()>0) {
                 for (int i = 0; i < employeeModels.size(); i++) {
                     EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();

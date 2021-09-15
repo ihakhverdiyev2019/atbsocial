@@ -19,6 +19,8 @@ public class EmployeeModel {
 
     private int branchId;
 
+    private String birthDayWithoutYear;
+
     private int departmentId;
 
     private int subDepartment;
@@ -39,6 +41,14 @@ public class EmployeeModel {
 
     public EmployeeModel(){
 
+    }
+
+    public String getBirthDayWithoutYear() {
+        return birthDayWithoutYear;
+    }
+
+    public void setBirthDayWithoutYear(String birthDayWithoutYear) {
+        this.birthDayWithoutYear = birthDayWithoutYear;
     }
 
     public int getId() {
