@@ -21,8 +21,14 @@ public class NewsServiceImpl implements NewsService {
 
         try{
             List<NewsModel> newsModels = newsRepository.findAll();
+            int lastnum;
+            if(page*count>newsModels.size()){
+                lastnum=newsModels.size();
+            }else {
+                lastnum = page*count;
+            }
 
-            for(int i = (page-1)*count ; i<page*count ; i++){
+            for(int i = (page-1)*count ; i<lastnum ; i++){
 
                 newsModelsFilter.add(newsModels.get(i));
 
