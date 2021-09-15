@@ -6,6 +6,8 @@ import atb.social.network.repository.SubDepartmentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class SubDepartmentServiceImpl implements SubDepartmentService{
 
@@ -22,5 +24,17 @@ public class SubDepartmentServiceImpl implements SubDepartmentService{
             throw  new Exception(e.getMessage());
         }
         return subDepartmentModel;
+    }
+
+    @Override
+    public List<SubDepartmentModel> getallSubDepartment(int branchId, int departId) throws Exception {
+        List<SubDepartmentModel> subDepartmentModels;
+        try {
+            subDepartmentModels= subDepartmentRepository.findAllByBranchIdAndDepartId(branchId,departId);
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+        return subDepartmentModels;
     }
 }

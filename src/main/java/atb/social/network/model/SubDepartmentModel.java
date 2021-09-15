@@ -14,6 +14,10 @@ public class SubDepartmentModel {
 
     private String name;
 
+    private int branchId;
+
+    private int departId;
+
     public SubDepartmentModel(){
 
     }
@@ -32,5 +36,21 @@ public class SubDepartmentModel {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getBranchId() {
+        return branchId;
+    }
+
+    public void setBranchId(int branchId) {
+        this.branchId = branchId;
+    }
+
+    public int getDepartId() {
+        return departId;
+    }
+
+    public void setDepartId(int departId) {
+        this.departId = departId;
     }
 }
