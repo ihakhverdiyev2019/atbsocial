@@ -25,7 +25,7 @@ public class NotificationServiceImpl implements NotificationService {
     public List<NotificationOnHomePageModel> getNotificationByDate() throws Exception {
         List<NotificationOnHomePageModel> notificationOnHomePageModels;
         try{
-            String pattern = " dd.MM.yyyy";
+            String pattern = " dd/MM/yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(new Date());
             System.out.println(date);
