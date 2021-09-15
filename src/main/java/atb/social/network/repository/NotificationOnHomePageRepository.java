@@ -10,7 +10,7 @@ import java.util.List;
 public interface NotificationOnHomePageRepository extends CrudRepository<NotificationOnHomePageModel,Integer> {
 
 
-List<NotificationOnHomePageModel> findAllByDate(String date);
+List<NotificationOnHomePageModel> findAllByNotDate(String date);
 
 
 

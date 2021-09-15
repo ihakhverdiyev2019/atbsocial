@@ -1,6 +1,4 @@
 package atb.social.network.model;
-
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,14 +7,11 @@ import javax.persistence.Id;
 @Entity
 public class NotificationOnHomePageModel {
 
-
-@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-
-private String notificationText;
-
-private String date;
+    private String notificationText;
+    private String notDate;
 
     public NotificationOnHomePageModel() {
     }
@@ -37,11 +32,11 @@ private String date;
         this.notificationText = notificationText;
     }
 
-    public String getDate() {
-        return date;
+    public String getNotDate() {
+        return notDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setNotDate(String notDate) {
+        this.notDate = notDate;
     }
 }

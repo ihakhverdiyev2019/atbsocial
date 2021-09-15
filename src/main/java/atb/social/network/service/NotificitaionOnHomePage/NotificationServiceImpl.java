@@ -29,7 +29,7 @@ public class NotificationServiceImpl implements NotificationService {
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(new Date());
             System.out.println(date);
-            notificationOnHomePageModels = notificationOnHomePageRepository.findAllByDate(date);
+            notificationOnHomePageModels = notificationOnHomePageRepository.findAllByNotDate(date);
             System.out.println(notificationOnHomePageModels.size());
 
 
