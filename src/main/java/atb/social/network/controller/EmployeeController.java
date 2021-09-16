@@ -103,6 +103,7 @@ public class EmployeeController {
             employeeModel.setStartJobDate(employee.getStartDate());
             employeeModel.setSurname(employee.getSurname());
             employeeModel.setSubDepartment(employee.getSubDepartId());
+            employeeModel.setDepartmentId(employee.getDepartId());
 
           employeeService.save(employeeModel);
 
