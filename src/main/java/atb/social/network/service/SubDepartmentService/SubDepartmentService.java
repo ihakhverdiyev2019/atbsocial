@@ -10,4 +10,6 @@ public interface SubDepartmentService {
 
     List<SubDepartmentModel> getallSubDepartment(int branchId, int departId) throws Exception;
 
+
+
 }

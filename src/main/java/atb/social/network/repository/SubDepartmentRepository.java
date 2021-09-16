@@ -12,4 +12,6 @@ public interface SubDepartmentRepository extends CrudRepository<SubDepartmentMod
 
     List<SubDepartmentModel> findAllByBranchIdAndDepartId(int branchId, int departId);
 
+
+
 }
