@@ -24,6 +24,7 @@ public class NewsController {
 
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/news" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllNews(@RequestParam String count,@RequestParam String page) throws Exception {
         List<NewsModel> allNews;
@@ -45,6 +46,7 @@ public class NewsController {
     }
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/news/{id}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllNewsById(@PathVariable("id") String nId) throws Exception {
         NewsModel newsModel;

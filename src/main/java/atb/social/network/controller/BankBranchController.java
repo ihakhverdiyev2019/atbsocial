@@ -21,7 +21,7 @@ public class BankBranchController {
     private BankBranchService bankBranchService;
 
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/branches" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches() throws Exception {
         List<BankBranchModel> allBranches = new ArrayList<>();
@@ -41,6 +41,7 @@ public class BankBranchController {
     }
 
 
+    @CrossOrigin(origins = "*",allowedHeaders = "*")
     @RequestMapping(value = "/branches/save" , method = RequestMethod.GET)
     public ResponseEntity<Object> saveBranch(@RequestBody BranchDto branchDto) throws Exception {
 
@@ -59,7 +60,7 @@ public class BankBranchController {
 
     }
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/branches/edit/{id}" , method = RequestMethod.GET)
     public ResponseEntity<Object> editBranch(@PathVariable String id, @RequestBody BranchDto branchDto) throws Exception {
 

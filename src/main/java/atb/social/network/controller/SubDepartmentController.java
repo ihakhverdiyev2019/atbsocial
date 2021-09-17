@@ -5,10 +5,7 @@ import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +19,7 @@ public class SubDepartmentController {
 
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/subDepart/{bid}/{did}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches(@PathVariable("bid") String bid, @PathVariable("did") String did) throws Exception {
         List<SubDepartmentModel> subDepartmentModelList ;

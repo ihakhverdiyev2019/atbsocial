@@ -19,6 +19,7 @@ public class PositionController {
     private PositionService positionService;
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/positions/{bid}/{did}/{sdid}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches(@PathVariable("bid") String bid, @PathVariable("did") String did,@PathVariable("sdid") String sdid) throws Exception {
         List<PositionModel> positionModels;
@@ -38,6 +39,7 @@ public class PositionController {
     }
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/positions/save" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches(@RequestBody PositionDto positionDto) throws Exception {
         try{

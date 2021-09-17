@@ -22,7 +22,7 @@ public class EmployeeController {
     @Autowired
     private SubDepartmentService subDepartmentService;
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllEmployees(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
         List<EmployeeBriefDto> employeeModels = new ArrayList<>();
@@ -42,6 +42,7 @@ public class EmployeeController {
     }
 
 
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{empId}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getEmployeeDetails(@PathVariable("empId") String empId) throws Exception {
         EmployeeDto employeeDto = null;
@@ -63,7 +64,7 @@ public class EmployeeController {
 
     }
 
-
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/birthday" , method = RequestMethod.GET)
     public ResponseEntity<Object> getEmployeeBirht() throws Exception {
 
