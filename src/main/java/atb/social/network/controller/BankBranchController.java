@@ -42,7 +42,7 @@ public class BankBranchController {
 
 
     @CrossOrigin(origins = "*",allowedHeaders = "*")
-    @RequestMapping(value = "/branches/save" , method = RequestMethod.GET)
+    @RequestMapping(value = "/branches/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveBranch(@RequestBody BranchDto branchDto) throws Exception {
 
         try{
@@ -61,7 +61,7 @@ public class BankBranchController {
     }
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/branches/edit/{id}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/branches/edit/{id}" , method = RequestMethod.POST)
     public ResponseEntity<Object> editBranch(@PathVariable String id, @RequestBody BranchDto branchDto) throws Exception {
 
         try{
