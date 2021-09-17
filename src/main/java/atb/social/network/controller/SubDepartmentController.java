@@ -1,5 +1,6 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.SubDepartDto;
 import atb.social.network.model.SubDepartmentModel;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,71 @@ public class SubDepartmentController {
 
 
     }
+
+
+
+
+
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/subDepart/save" , method = RequestMethod.POST)
+    public ResponseEntity<Object> saveSubDepartment(@RequestBody SubDepartDto subDepartDto) throws Exception {
+
+        try{
+
+
+            subDepartmentService.save(subDepartDto);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/subDepart/edit/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> editSubDepartment(@PathVariable("id") String id, @RequestBody SubDepartDto subDepartDto) throws Exception {
+
+        try{
+
+            subDepartmentService.edit(subDepartDto,Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/subDepart/remove/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> removeSubDepartment(@PathVariable("id") String id) throws Exception {
+
+        try{
+
+            subDepartmentService.remove(Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
 }
