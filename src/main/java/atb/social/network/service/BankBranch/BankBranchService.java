@@ -13,4 +13,6 @@ public interface BankBranchService {
 
     void edit(BranchDto branchDto, int id) throws Exception;
 
+    void remove(int id) throws Exception;
+
 }

@@ -57,6 +57,21 @@ public class BankBranchServiceImpl implements BankBranchService {
 
     }
 
+    @Override
+    public void remove(int id) throws Exception {
+
+        try {
+
+            BankBranchModel bankBranchModel = bankBranchRepository.findById(id).get();
+
+            bankBranchRepository.delete(bankBranchModel);
+
+
+        } catch (Exception e) {
+            throw new Exception(e.getMessage());
+        }
+    }
+
 
 }
 

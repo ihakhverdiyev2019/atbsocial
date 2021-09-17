@@ -79,6 +79,25 @@ public class BankBranchController {
     }
 
 
+    @RequestMapping(value = "/branches/remove/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<Object> removeBranch(@PathVariable String id) throws Exception {
+
+        try{
+
+            bankBranchService.remove(Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("Done", HttpStatus.OK);
+
+
+
+    }
+
+
 
 
 }
