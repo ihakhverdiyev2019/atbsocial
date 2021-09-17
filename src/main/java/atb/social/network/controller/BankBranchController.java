@@ -1,14 +1,13 @@
 package atb.social.network.controller;
 
 
+import atb.social.network.dto.BranchDto;
 import atb.social.network.model.BankBranchModel;
 import atb.social.network.service.BankBranch.BankBranchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.net.http.HttpResponse;
 import java.util.ArrayList;
@@ -36,6 +35,44 @@ public class BankBranchController {
         }
 
         return new ResponseEntity(allBranches, HttpStatus.OK);
+
+
+
+    }
+
+
+    @RequestMapping(value = "/branches/save" , method = RequestMethod.GET)
+    public ResponseEntity<Object> saveBranch(@RequestBody BranchDto branchDto) throws Exception {
+
+        try{
+
+            bankBranchService.save(branchDto);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("Done", HttpStatus.OK);
+
+
+
+    }
+
+
+    @RequestMapping(value = "/branches/edit/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<Object> editBranch(@PathVariable String id, @RequestBody BranchDto branchDto) throws Exception {
+
+        try{
+
+            bankBranchService.edit(branchDto,Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("Done", HttpStatus.OK);
 
 
 

@@ -1,5 +1,6 @@
 package atb.social.network.service.BankBranch;
 
+import atb.social.network.dto.BranchDto;
 import atb.social.network.model.BankBranchModel;
 import atb.social.network.model.BankDepartmenModel;
 import atb.social.network.repository.BankBranchRepository;
@@ -26,5 +27,36 @@ public class BankBranchServiceImpl implements BankBranchService {
         return bankBranchModels;
     }
 
+    @Override
+    public void save(BranchDto branchDto) throws Exception {
+        try{
+            BankBranchModel bankBranchModel = new BankBranchModel();
+            bankBranchModel.setBranchName(branchDto.getBranchName());
+            bankBranchModel.setIsMainBranch(branchDto.getIsMain());
+            bankBranchRepository.save(bankBranchModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
     }
+
+    @Override
+    public void edit(BranchDto branchDto, int id) throws Exception {
+
+        try{
+            BankBranchModel bankBranchModel = bankBranchRepository.findById(id).get();
+            bankBranchModel.setBranchName(branchDto.getBranchName());
+            bankBranchModel.setIsMainBranch(branchDto.getIsMain());
+            bankBranchRepository.save(bankBranchModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+
+    }
+
+
+}
 
