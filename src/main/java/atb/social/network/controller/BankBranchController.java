@@ -79,8 +79,8 @@ public class BankBranchController {
 
     }
 
-
-    @RequestMapping(value = "/branches/remove/{id}" , method = RequestMethod.GET)
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/branches/remove/{id}" , method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeBranch(@PathVariable String id) throws Exception {
 
         try{
