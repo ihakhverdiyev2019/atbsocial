@@ -43,7 +43,7 @@ public class BankDepartmentServiceImpl implements BankDepartmentService {
     public void save(DepartmentDto departmentDto) throws Exception {
         try{
             BankDepartmenModel bankDepartmenModel = new BankDepartmenModel();
-            bankDepartmenModel.setDepartmentName(departmentDto.getDepartmenName());
+            bankDepartmenModel.setDepartmentName(departmentDto.getDepartmentName());
             bankDepartmenModel.setAvailableOnBranchId(departmentDto.getBranchId());
 
            bankDepartmentRepository.save(bankDepartmenModel);
@@ -57,7 +57,7 @@ public class BankDepartmentServiceImpl implements BankDepartmentService {
         try{
 
             BankDepartmenModel bankDepartmenModel = bankDepartmentRepository.findById(id).get();
-            bankDepartmenModel.setDepartmentName(departmentDto.getDepartmenName());
+            bankDepartmenModel.setDepartmentName(departmentDto.getDepartmentName());
             bankDepartmenModel.setAvailableOnBranchId(departmentDto.getBranchId());
 
             bankDepartmentRepository.save(bankDepartmenModel);
