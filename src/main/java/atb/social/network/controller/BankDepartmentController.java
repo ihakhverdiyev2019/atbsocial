@@ -35,7 +35,7 @@ public class BankDepartmentController {
         try{
 
             departmentByBranchId  = bankDepartmentService.getByBranchId(Integer.parseInt(id));
-         
+
 
         }catch (Exception e){
             throw new Exception(e.getMessage());

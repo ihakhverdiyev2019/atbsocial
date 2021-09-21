@@ -46,6 +46,7 @@ public class SubDepartmentServiceImpl implements SubDepartmentService{
             subDepartmentModel.setBranchId(subDepartDto.getBranchId());
             subDepartmentModel.setDepartId(subDepartDto.getDepartId());
             subDepartmentModel.setName(subDepartDto.getSubDepartName());
+            subDepartmentModel.setPositionLevel(subDepartDto.getPositionLevel());
             subDepartmentRepository.save(subDepartmentModel);
 
         }catch (Exception e){

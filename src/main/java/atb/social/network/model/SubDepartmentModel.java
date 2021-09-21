@@ -18,6 +18,8 @@ public class SubDepartmentModel {
 
     private int departId;
 
+    private int positionLevel;
+
     public SubDepartmentModel(){
 
     }
@@ -52,5 +54,13 @@ public class SubDepartmentModel {
 
     public void setDepartId(int departId) {
         this.departId = departId;
+    }
+
+    public int getPositionLevel() {
+        return positionLevel;
+    }
+
+    public void setPositionLevel(int positionLevel) {
+        this.positionLevel = positionLevel;
     }
 }
