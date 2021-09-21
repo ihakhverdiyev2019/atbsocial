@@ -25,7 +25,7 @@ public class EmployeeModel {
 
     private int subDepartment;
 
-    private String position;
+    private int position;
 
     private String internalNumber;
 
@@ -79,11 +79,11 @@ public class EmployeeModel {
         this.subDepartment = subDepartment;
     }
 
-    public String getPosition() {
+    public int getPosition() {
         return position;
     }
 
-    public void setPosition(String position) {
+    public void setPosition(int position) {
         this.position = position;
     }
 

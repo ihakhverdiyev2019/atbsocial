@@ -1,11 +1,9 @@
 package atb.social.network.service.EmployeeService;
 
 import atb.social.network.dto.*;
+import atb.social.network.model.EmployeeEditHistory;
 import atb.social.network.model.EmployeeModel;
-import atb.social.network.repository.BankBranchRepository;
-import atb.social.network.repository.BankDepartmentRepository;
-import atb.social.network.repository.EmployeeRepository;
-import atb.social.network.repository.SubDepartmentRepository;
+import atb.social.network.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,12 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
     @Autowired
     private SubDepartmentRepository subDepartmentRepository;
+
+    @Autowired
+    private EmployeeEditHistoryRepository employeeEditHistoryRepository;
+
+    @Autowired
+    private PositionRepository positionRepository;
 
 
 
@@ -63,7 +67,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                         employeeBriefDetailsDto.setId(employeeModels.get(t).getId());
                         employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
                         employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
-                        employeeBriefDetailsDto.setPosition(employeeModels.get(t).getPosition());
+                        employeeBriefDetailsDto.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
                         employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
 
                         employeeBriefDetailsDtos.add(employeeBriefDetailsDto);
@@ -99,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             employeeDto.setName(employeeModel.getName());
             employeeDto.setPhoneNumber(employeeModel.getPhoneNumber());
             employeeDto.setPhotoBase64(employeeModel.getPhotoBase64());
-            employeeDto.setPosition(employeeModel.getPosition());
+            employeeDto.setPosition(positionRepository.findById(employeeModel.getPosition()).get().getPositionName());
             employeeDto.setStartJobDate(employeeModel.getStartJobDate());
             employeeDto.setSubDepartmentName(subDepartmentRepository.findById(employeeModel.getSubDepartment()).get().getName());
             employeeDto.setSurname(employeeModel.getSurname());
@@ -127,17 +131,20 @@ public class EmployeeServiceImpl implements EmployeeService  {
         try {
 
 
-            String pattern = " dd/MM/";
+            String pattern = " yyyy-MM-dd";
             String patternShow = " dd.MM.yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             SimpleDateFormat simpleDateFormatShow = new SimpleDateFormat(patternShow);
 
             String date = simpleDateFormat.format(new Date());
-            System.out.println(date);
+            String str = date;
+            String result = str.substring(5);
+            result = result.replaceAll("-", "");
+            System.out.println(result);
             employeesBirthDayList.setDate(simpleDateFormatShow.format(new Date()));
 
 
-            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirthDayWithoutYear(date);
+            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirthDayWithoutYear(result);
             if(employeeModels.size()>0) {
                 for (int i = 0; i < employeeModels.size(); i++) {
                     EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();
@@ -164,8 +171,82 @@ public class EmployeeServiceImpl implements EmployeeService  {
     }
 
     @Override
-    public void save(EmployeeModel employeeModel) {
-        employeeRepository.save(employeeModel);
+    public void save(EmployeeModel employeeModel) throws Exception {
+        try {
+            employeeRepository.save(employeeModel);
+            if(employeeModel.getId()>=400){
+                EmployeeEditHistory employeeEditHistory  = new EmployeeEditHistory();
+                employeeEditHistory.setStatus("Yeni əməkdaş");
+                employeeEditHistory.setfPosition(employeeModel.getPosition());
+                employeeEditHistory.setEmployeeId(employeeModel.getId());
+                String pattern = " yyyy-MM-dd";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+                String date = simpleDateFormat.format(new Date());
+
+                String result = date.substring(5);
+                result = result.replaceAll("-", "");
+                employeeEditHistory.setDateWithoutYear(result);
+                employeeEditHistory.setDate(date);
+                employeeEditHistoryRepository.save(employeeEditHistory);
+            }
+
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public void edit(EmployeeSaveDto employeeDto, int id, int checkBox) throws Exception {
+        try{
+            EmployeeModel employeeModel = employeeRepository.findById(id);
+            if(checkBox==1) {
+                EmployeeEditHistory employeeEditHistory = new EmployeeEditHistory();
+                String pattern = " yyyy-MM-dd";
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+                String date = simpleDateFormat.format(new Date());
+
+                String result = date.substring(5);
+                result = result.replaceAll("-", "");
+                employeeEditHistory.setDate(date);
+                employeeEditHistory.setDateWithoutYear(result);
+                employeeEditHistory.setEmployeeId(id);
+                employeeEditHistory.setStatus("Vəzifə dəyişikliyi");
+                employeeEditHistory.setfPosition(employeeModel.getPosition());
+                employeeEditHistory.setlPosition(employeeDto.getPosition());
+                employeeEditHistoryRepository.save(employeeEditHistory);
+
+
+            }
+
+            employeeModel.setDepartmentId(employeeDto.getDepartId());
+            employeeModel.setSubDepartment(employeeDto.getSubDepartId());
+            employeeModel.setSurname(employeeDto.getSurname());
+            employeeModel.setStartJobDate(employeeDto.getStartDate());
+            employeeModel.setPosition(employeeDto.getPosition());
+            employeeModel.setPhotoBase64(employeeDto.getPhoto());
+            employeeModel.setPhoneNumber(employeeDto.getNumber());
+            employeeModel.setName(employeeDto.getName());
+            employeeModel.setInternalNumber(employeeDto.getInternalNum());
+            employeeModel.setEmail(employeeDto.getEmail());
+            employeeModel.setBirhtDate(employeeDto.getBirthDay());
+            String str = employeeDto.getBirthDay();
+            String result = str.substring(5);
+            result = result.replaceAll("-", "");
+            employeeModel.setBirthDayWithoutYear(result);
+            employeeModel.setBranchId(employeeDto.getBranchId());
+            employeeRepository.save(employeeModel);
+
+
+
+
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+
     }
 
 

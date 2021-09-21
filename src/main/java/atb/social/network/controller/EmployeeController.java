@@ -4,6 +4,7 @@ import atb.social.network.dto.*;
 
 import atb.social.network.model.EmployeeModel;
 import atb.social.network.service.EmployeeService.EmployeeService;
+import atb.social.network.service.HistoryService.HistoryService;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,11 @@ public class EmployeeController {
 
     @Autowired
     private SubDepartmentService subDepartmentService;
+
+    @Autowired
+    private HistoryService historyService;
+
+
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
@@ -86,14 +92,39 @@ public class EmployeeController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees/changes" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getEmployeeChanges() throws Exception {
+
+        List<EmployeePositionChangesDto> employeePositionChangesDtos;
+
+        try{
+
+            employeePositionChangesDtos  = historyService.getDetails();
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(employeePositionChangesDtos, HttpStatus.OK);
+
+
+
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
         try{
+            String str = employee.getBirthDay();
+            String result = str.substring(5);
+            result = result.replaceAll("-", "");
 
             EmployeeModel employeeModel = new EmployeeModel();
             employeeModel.setBirhtDate(employee.getBirthDay());
             employeeModel.setBranchId(employee.getBranchId());
-            employeeModel.setBirthDayWithoutYear(employee.getBirthDay());
+            employeeModel.setBirthDayWithoutYear(result);
             employeeModel.setBirhtDate(employee.getBirthDay());
             employeeModel.setEmail(employee.getEmail());
             employeeModel.setInternalNumber(employee.getInternalNum());

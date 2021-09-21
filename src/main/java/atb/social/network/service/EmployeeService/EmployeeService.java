@@ -1,9 +1,6 @@
 package atb.social.network.service.EmployeeService;
 
-import atb.social.network.dto.EmployeeBirhtDto;
-import atb.social.network.dto.EmployeeBriefDto;
-import atb.social.network.dto.EmployeeDto;
-import atb.social.network.dto.EmployeesBirthDayList;
+import atb.social.network.dto.*;
 import atb.social.network.model.EmployeeModel;
 
 import java.util.List;
@@ -16,6 +13,8 @@ public interface EmployeeService {
 
     EmployeesBirthDayList getEmployeeBirth() throws Exception;
 
-    void save(EmployeeModel employeeModel);
+    void save(EmployeeModel employeeModel) throws Exception;
+
+    void edit(EmployeeSaveDto employeeDto, int id, int checkBox) throws Exception;
 
 }
