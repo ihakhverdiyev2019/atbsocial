@@ -34,7 +34,7 @@ public class HistoryServiceImpl implements HistoryService {
         try{
 
 
-            String pattern = " yyyy-MM-dd";
+            String pattern = "yyyy-MM-dd";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
             String date = simpleDateFormat.format(new Date());

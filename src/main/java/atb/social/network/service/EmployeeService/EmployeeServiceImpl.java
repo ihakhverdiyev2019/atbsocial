@@ -131,8 +131,8 @@ public class EmployeeServiceImpl implements EmployeeService  {
         try {
 
 
-            String pattern = " yyyy-MM-dd";
-            String patternShow = " dd.MM.yyyy";
+            String pattern = "yyyy-MM-dd";
+            String patternShow = "dd.MM.yyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             SimpleDateFormat simpleDateFormatShow = new SimpleDateFormat(patternShow);
 
@@ -179,7 +179,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 employeeEditHistory.setStatus("Yeni əməkdaş");
                 employeeEditHistory.setfPosition(employeeModel.getPosition());
                 employeeEditHistory.setEmployeeId(employeeModel.getId());
-                String pattern = " yyyy-MM-dd";
+                String pattern = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
                 String date = simpleDateFormat.format(new Date());
@@ -203,7 +203,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             EmployeeModel employeeModel = employeeRepository.findById(id);
             if(checkBox==1) {
                 EmployeeEditHistory employeeEditHistory = new EmployeeEditHistory();
-                String pattern = " yyyy-MM-dd";
+                String pattern = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
                 String date = simpleDateFormat.format(new Date());
