@@ -35,14 +35,7 @@ public class BankDepartmentController {
         try{
 
             departmentByBranchId  = bankDepartmentService.getByBranchId(Integer.parseInt(id));
-            if (departmentByBranchId.size()==0){
-                BankDepartmenModel bankDepartmenModel = new BankDepartmenModel();
-                bankDepartmenModel.setAvailableOnBranchId(0);
-                bankDepartmenModel.setDepartmentName(null);
-                bankDepartmenModel.setId(0);
-                departmentByBranchId.add(bankDepartmenModel);
-            }
-
+         
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
