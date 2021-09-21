@@ -24,7 +24,7 @@ public class BankBranchController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/branches" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches() throws Exception {
-        List<BankBranchModel> allBranches = new ArrayList<>();
+        List<BankBranchModel> allBranches;
         try{
 
             allBranches  = bankBranchService.getAllBranches();

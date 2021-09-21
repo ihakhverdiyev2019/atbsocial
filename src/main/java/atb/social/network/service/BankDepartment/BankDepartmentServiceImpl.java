@@ -19,7 +19,7 @@ public class BankDepartmentServiceImpl implements BankDepartmentService {
 
     @Override
     public List<BankDepartmenModel> getAllDepartments() throws Exception {
-        List<BankDepartmenModel> bankDepartmenModels = new ArrayList<>();
+        List<BankDepartmenModel> bankDepartmenModels;
         try{
         bankDepartmenModels = bankDepartmentRepository.findAll();
         }catch (Exception e){

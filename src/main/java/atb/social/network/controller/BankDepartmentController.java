@@ -1,16 +1,13 @@
 package atb.social.network.controller;
 
 import atb.social.network.dto.DepartmentDto;
-import atb.social.network.model.BankBranchModel;
 import atb.social.network.model.BankDepartmenModel;
-import atb.social.network.service.BankBranch.BankBranchService;
 import atb.social.network.service.BankDepartment.BankDepartmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,7 +30,7 @@ public class BankDepartmentController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/departments/{id}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllBranches(@PathVariable("id") String id) throws Exception {
-        List<BankDepartmenModel> departmentByBranchId = new ArrayList<>();
+        List<BankDepartmenModel> departmentByBranchId ;
         System.out.println(id);
         try{
 
