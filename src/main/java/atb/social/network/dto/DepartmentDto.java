@@ -2,19 +2,19 @@ package atb.social.network.dto;
 
 public class DepartmentDto {
 
-    private String departmenName;
+    private String departmentName;
 
     private int branchId;
 
     public DepartmentDto() {
     }
 
-    public String getDepartmenName() {
-        return departmenName;
+    public String getDepartmentName() {
+        return departmentName;
     }
 
-    public void setDepartmenName(String departmenName) {
-        this.departmenName = departmenName;
+    public void setDepartmentName(String departmentName) {
+        this.departmentName = departmentName;
     }
 
     public int getBranchId() {
