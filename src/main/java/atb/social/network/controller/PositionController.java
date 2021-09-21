@@ -40,7 +40,7 @@ public class PositionController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/positions/save" , method = RequestMethod.GET)
+    @RequestMapping(value = "/positions/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> getAllBranches(@RequestBody PositionDto positionDto) throws Exception {
         try{
 
