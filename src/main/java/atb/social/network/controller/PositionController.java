@@ -50,6 +50,7 @@ public class PositionController {
         positionModel.setDepartId(positionDto.getDepartId());
         positionModel.setPositionName(positionDto.getPositionName());
         positionModel.setSubDepartId(positionDto.getSubDepartId());
+        positionModel.setImportance(positionDto.getImportance());
         positionService.savePosition(positionModel);
 
 
