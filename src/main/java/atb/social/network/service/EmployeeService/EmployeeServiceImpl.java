@@ -158,6 +158,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 }
             }
             employeesBirthDayList.setEmployeeBirhtDtoList(employeeBirhtDtos);
+            System.out.println("Result size: " + employeeBirhtDtos.size() );
 
 
 
