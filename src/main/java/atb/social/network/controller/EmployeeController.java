@@ -150,6 +150,43 @@ public class EmployeeController {
     }
 
 
+//    @CrossOrigin(origins = "*", allowedHeaders = "*")
+//    @RequestMapping(value = "/employees/edit/{id}" , method = RequestMethod.POST)
+//    public ResponseEntity<Object> editEmployee(@RequestBody EmployeeSaveDto employee,@PathVariable("id") String id) throws Exception {
+//        try{
+//            String str = employee.getBirthDay();
+//            String result = str.substring(5);
+//            result = result.replaceAll("-", "");
+//
+//            EmployeeModel employeeModel = new EmployeeModel();
+//            employeeModel.setBirhtDate(employee.getBirthDay());
+//            employeeModel.setBranchId(employee.getBranchId());
+//            employeeModel.setFilterBirth(result);
+//            employeeModel.setBirhtDate(employee.getBirthDay());
+//            employeeModel.setEmail(employee.getEmail());
+//            employeeModel.setInternalNumber(employee.getInternalNum());
+//            employeeModel.setName(employee.getName());
+//            employeeModel.setPhoneNumber(employee.getNumber());
+//            employeeModel.setPhotoBase64(employee.getPhoto());
+//            employeeModel.setPosition(employee.getPosition());
+//            employeeModel.setStartJobDate(employee.getStartDate());
+//            employeeModel.setSurname(employee.getSurname());
+//            employeeModel.setSubDepartment(employee.getSubDepartId());
+//            employeeModel.setDepartmentId(employee.getDepartId());
+//
+//            employeeService.save(employeeModel);
+//
+//        }catch (Exception e){
+//            throw new Exception(e.getMessage());
+//        }
+//
+//        return new ResponseEntity("DONE", HttpStatus.OK);
+//
+//
+//
+//    }
+
+
 
 
 }

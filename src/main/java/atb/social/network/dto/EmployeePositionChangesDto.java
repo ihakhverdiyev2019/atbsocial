@@ -11,6 +11,7 @@ public class EmployeePositionChangesDto {
     private String fPosition;
     private String lPosition;
 
+
     public EmployeePositionChangesDto() {
     }
 
@@ -61,4 +62,5 @@ public class EmployeePositionChangesDto {
     public void setlPosition(String lPosition) {
         this.lPosition = lPosition;
     }
+
 }

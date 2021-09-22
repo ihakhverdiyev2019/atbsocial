@@ -21,7 +21,7 @@ public class PositionController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/positions/{bid}/{did}/{sdid}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllBranches(@PathVariable("bid") String bid, @PathVariable("did") String did,@PathVariable("sdid") String sdid) throws Exception {
+    public ResponseEntity<Object> getAllPosition(@PathVariable("bid") String bid, @PathVariable("did") String did,@PathVariable("sdid") String sdid) throws Exception {
         List<PositionModel> positionModels;
         try{
 
@@ -41,7 +41,7 @@ public class PositionController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/positions/save" , method = RequestMethod.POST)
-    public ResponseEntity<Object> getAllBranches(@RequestBody PositionDto positionDto) throws Exception {
+    public ResponseEntity<Object> savePosition(@RequestBody PositionDto positionDto) throws Exception {
         try{
 
         PositionModel positionModel = new PositionModel();
@@ -51,6 +51,46 @@ public class PositionController {
         positionModel.setPositionName(positionDto.getPositionName());
         positionModel.setSubDepartId(positionDto.getSubDepartId());
         positionService.savePosition(positionModel);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/positions/remove/{id}" , method = RequestMethod.POST)
+
+    public ResponseEntity<Object> removePosition(@PathVariable("id") String id) throws Exception {
+        try{
+
+         positionService.removePosition(Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/positions/edit/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> editPosition(@RequestBody PositionDto positionDto,@PathVariable("id") String id) throws Exception {
+        try{
+
+            positionService.editPosition(positionDto,Integer.parseInt(id));
 
 
         }catch (Exception e){

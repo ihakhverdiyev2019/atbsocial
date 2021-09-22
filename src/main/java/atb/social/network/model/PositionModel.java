@@ -22,6 +22,8 @@ public class PositionModel {
 
     private int subDepartId;
 
+    private int importance;
+
     public PositionModel() {
     }
 
@@ -63,5 +65,13 @@ public class PositionModel {
 
     public void setSubDepartId(int subDepartId) {
         this.subDepartId = subDepartId;
+    }
+
+    public int getImportance() {
+        return importance;
+    }
+
+    public void setImportance(int importance) {
+        this.importance = importance;
     }
 }

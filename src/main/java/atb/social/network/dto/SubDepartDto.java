@@ -6,7 +6,6 @@ public class SubDepartDto {
     private int branchId;
 
     private int departId;
-    private int positionLevel;
 
     public SubDepartDto() {
     }
@@ -35,11 +34,5 @@ public class SubDepartDto {
         this.departId = departId;
     }
 
-    public int getPositionLevel() {
-        return positionLevel;
-    }
 
-    public void setPositionLevel(int positionLevel) {
-        this.positionLevel = positionLevel;
-    }
 }
