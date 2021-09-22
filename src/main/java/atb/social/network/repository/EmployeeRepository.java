@@ -14,7 +14,7 @@ public interface EmployeeRepository extends CrudRepository<EmployeeModel,Integer
 
     EmployeeModel findById(int id);
 
-    List<EmployeeModel> findAllByBirthDayWithoutYear(String birthday);
+    List<EmployeeModel> findAllByFilterBirth(String birthday);
 
 
 

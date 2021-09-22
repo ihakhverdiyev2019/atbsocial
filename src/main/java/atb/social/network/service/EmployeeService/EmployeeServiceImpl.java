@@ -140,11 +140,12 @@ public class EmployeeServiceImpl implements EmployeeService  {
             String str = date;
             String result = str.substring(5);
             result = result.replaceAll("-", "");
-            System.out.println(result);
+            System.out.println("Date Result: " + result);
             employeesBirthDayList.setDate(simpleDateFormatShow.format(new Date()));
 
 
-            List<EmployeeModel> employeeModels = employeeRepository.findAllByBirthDayWithoutYear(result);
+            List<EmployeeModel> employeeModels = employeeRepository.findAllByFilterBirth(result);
+            System.out.println("Birth Size: " + employeeModels.size());
             if(employeeModels.size()>0) {
                 for (int i = 0; i < employeeModels.size(); i++) {
                     EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();
@@ -235,7 +236,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             String str = employeeDto.getBirthDay();
             String result = str.substring(5);
             result = result.replaceAll("-", "");
-            employeeModel.setBirthDayWithoutYear(result);
+            employeeModel.setFilterBirth(result);
             employeeModel.setBranchId(employeeDto.getBranchId());
             employeeRepository.save(employeeModel);
 

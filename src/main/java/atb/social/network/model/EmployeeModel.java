@@ -19,7 +19,7 @@ public class EmployeeModel {
 
     private int branchId;
 
-    private String birthDayWithoutYear;
+    private String filterBirth;
 
     private int departmentId;
 
@@ -43,12 +43,12 @@ public class EmployeeModel {
 
     }
 
-    public String getBirthDayWithoutYear() {
-        return birthDayWithoutYear;
+    public String getFilterBirth() {
+        return filterBirth;
     }
 
-    public void setBirthDayWithoutYear(String birthDayWithoutYear) {
-        this.birthDayWithoutYear = birthDayWithoutYear;
+    public void setFilterBirth(String filterBirth) {
+        this.filterBirth = filterBirth;
     }
 
     public int getId() {
