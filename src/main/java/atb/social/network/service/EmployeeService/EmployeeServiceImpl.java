@@ -146,15 +146,32 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
             List<EmployeeModel> employeeModels = employeeRepository.findAllByFilterBirth(result);
             System.out.println("Birth Size: " + employeeModels.size());
+            System.out.println("1");
             if(employeeModels.size()>0) {
+                System.out.println("2");
+
                 for (int i = 0; i < employeeModels.size(); i++) {
+                    System.out.println("3");
+
                     EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();
+                    System.out.println("4");
+
                     employeeBirhtDto.setId(employeeModels.get(i).getId());
+                    System.out.println("5");
+
                     employeeBirhtDto.setName(employeeModels.get(i).getName());
+                    System.out.println("6");
+
                     employeeBirhtDto.setSurname(employeeModels.get(i).getSurname());
+                    System.out.println("7");
+
                     employeeBirhtDto.setBranch(bankBranchRepository.findById(employeeModels.get(i).getBranchId()).get().getBranchName());
+                    System.out.println("8");
+
 
                     employeeBirhtDtos.add(employeeBirhtDto);
+                    System.out.println("9");
+
                 }
             }
             employeesBirthDayList.setEmployeeBirhtDtoList(employeeBirhtDtos);
