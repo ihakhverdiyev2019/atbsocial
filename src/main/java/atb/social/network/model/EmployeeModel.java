@@ -35,7 +35,7 @@ public class EmployeeModel {
 
     private String email;
 
-    @Lob
+
     private String photoBase64;
 
     public EmployeeModel(){
