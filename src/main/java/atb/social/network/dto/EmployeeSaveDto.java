@@ -18,7 +18,7 @@ public class EmployeeSaveDto {
 
     private int position;
 
-    private String photo;
+    private Clob photo;
 
     private String birthDay;
 
@@ -91,7 +91,7 @@ public class EmployeeSaveDto {
         return photo;
     }
 
-    public void setPhoto(String photo) {
+    public void setPhoto(Clob photo) {
         this.photo = photo;
     }
 
