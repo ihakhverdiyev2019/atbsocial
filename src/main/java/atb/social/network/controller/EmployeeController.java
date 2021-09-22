@@ -124,7 +124,7 @@ public class EmployeeController {
             EmployeeModel employeeModel = new EmployeeModel();
             employeeModel.setBirhtDate(employee.getBirthDay());
             employeeModel.setBranchId(employee.getBranchId());
-            employeeModel.setBirthDayWithoutYear(result);
+            employeeModel.setFilterBirth(result);
             employeeModel.setBirhtDate(employee.getBirthDay());
             employeeModel.setEmail(employee.getEmail());
             employeeModel.setInternalNumber(employee.getInternalNum());
