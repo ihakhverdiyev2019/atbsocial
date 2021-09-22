@@ -1,7 +1,5 @@
 package atb.social.network.dto;
 
-import java.sql.Clob;
-
 public class EmployeeDto {
 
     private String name;
@@ -26,7 +24,7 @@ public class EmployeeDto {
 
     private String email;
 
-    private Clob photoBase64;
+    private String photoBase64;
 
     public EmployeeDto(){
 
@@ -120,11 +118,11 @@ public class EmployeeDto {
         this.email = email;
     }
 
-    public Clob getPhotoBase64() {
+    public String getPhotoBase64() {
         return photoBase64;
     }
 
-    public void setPhotoBase64(Clob photoBase64) {
+    public void setPhotoBase64(String photoBase64) {
         this.photoBase64 = photoBase64;
     }
 }

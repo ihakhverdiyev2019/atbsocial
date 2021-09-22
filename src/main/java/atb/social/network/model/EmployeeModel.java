@@ -36,7 +36,7 @@ public class EmployeeModel {
     private String email;
 
     @Lob
-    private Clob photoBase64;
+    private String photoBase64;
 
     public EmployeeModel(){
 
@@ -146,11 +146,11 @@ public class EmployeeModel {
         this.email = email;
     }
 
-    public Clob getPhotoBase64() {
+    public String getPhotoBase64() {
         return photoBase64;
     }
 
-    public void setPhotoBase64(Clob photoBase64) {
+    public void setPhotoBase64(String photoBase64) {
         this.photoBase64 = photoBase64;
     }
 }
