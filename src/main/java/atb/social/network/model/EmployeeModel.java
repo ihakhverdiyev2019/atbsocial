@@ -1,10 +1,8 @@
 package atb.social.network.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.sql.Clob;
 
 @Entity
 public class EmployeeModel {
@@ -37,7 +35,8 @@ public class EmployeeModel {
 
     private String email;
 
-    private String photoBase64;
+    @Lob
+    private Clob photoBase64;
 
     public EmployeeModel(){
 
@@ -147,11 +146,11 @@ public class EmployeeModel {
         this.email = email;
     }
 
-    public String getPhotoBase64() {
+    public Clob getPhotoBase64() {
         return photoBase64;
     }
 
-    public void setPhotoBase64(String photoBase64) {
+    public void setPhotoBase64(Clob photoBase64) {
         this.photoBase64 = photoBase64;
     }
 }

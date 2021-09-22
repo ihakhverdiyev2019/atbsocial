@@ -1,5 +1,7 @@
 package atb.social.network.dto;
 
+import java.sql.Clob;
+
 public class EmployeeSaveDto {
 
     private int branchId;
@@ -85,7 +87,7 @@ public class EmployeeSaveDto {
         this.position = position;
     }
 
-    public String getPhoto() {
+    public Clob getPhoto() {
         return photo;
     }
 
