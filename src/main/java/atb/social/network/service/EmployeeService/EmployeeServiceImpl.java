@@ -44,6 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO = new EmployeeGetDetailsBankDTO();
 
         List<EmployeeBriefDto> employeeBriefDtos = new ArrayList<>();
+        List<EmployeeBriefDetailsDto> main = new ArrayList<>();
 
         try {
             employeeModels= employeeRepository.findAllByBranchIdAndDepartmentId(branchId,departmentId);
@@ -64,7 +65,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
                 for(int t = 0 ;t<employeeModels.size();t++){
                     if(employeeModels.get(t).getSubDepartment()==strNumber) {
-                        if(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName().equals("Direktor")){
+                        if(positionRepository.findById(employeeModels.get(t).getPosition()).get().getImportance()==0){
                             EmployeeBriefDetailsDto employeeBriefDetailsDto1 = new EmployeeBriefDetailsDto();
                             employeeBriefDetailsDto1.setPhoto(employeeModels.get(t).getPhotoBase64());
                             employeeBriefDetailsDto1.setSurname(employeeModels.get(t).getSurname());
@@ -72,7 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                             employeeBriefDetailsDto1.setId(employeeModels.get(t).getId());
                             employeeBriefDetailsDto1.setName(employeeModels.get(t).getName());
                             employeeBriefDetailsDto1.setInternalNumber(employeeModels.get(t).getInternalNumber());
-                            employeeGetDetailsBankDTO.setDirector(employeeBriefDetailsDto1);
+                            main.add(employeeBriefDetailsDto1);
 
 
                         }else {
@@ -96,6 +97,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
             }
             employeeGetDetailsBankDTO.setEmployeeBriefDtos(employeeBriefDtos);
+            employeeGetDetailsBankDTO.setMain(main);
 
 
 

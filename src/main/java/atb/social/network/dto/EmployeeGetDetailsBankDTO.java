@@ -4,18 +4,18 @@ import java.util.List;
 
 public class EmployeeGetDetailsBankDTO {
 
-    private EmployeeBriefDetailsDto director;
+    private List<EmployeeBriefDetailsDto> main;
     private List<EmployeeBriefDto> employeeBriefDtos;
 
     public EmployeeGetDetailsBankDTO() {
     }
 
-    public EmployeeBriefDetailsDto getDirector() {
-        return director;
+    public List<EmployeeBriefDetailsDto> getMain() {
+        return main;
     }
 
-    public void setDirector(EmployeeBriefDetailsDto director) {
-        this.director = director;
+    public void setMain(List<EmployeeBriefDetailsDto> main) {
+        this.main = main;
     }
 
     public List<EmployeeBriefDto> getEmployeeBriefDtos() {
