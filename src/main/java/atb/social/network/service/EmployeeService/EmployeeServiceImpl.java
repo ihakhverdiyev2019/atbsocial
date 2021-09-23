@@ -167,7 +167,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                     employeeBirhtDto.setSurname(employeeModels.get(i).getSurname());
                     System.out.println("7");
 
-                    employeeBirhtDto.setBranch(bankBranchRepository.findById(employeeModels.get(i).getBranchId()).get().getBranchName());
+                    employeeBirhtDto.setInternalNum(employeeModels.get(i).getInternalNumber());
                     System.out.println("8");
                     employeeBirhtDto.setPhoto(employeeModels.get(i).getPhotoBase64());
                     System.out.println("Birth Photo: " + employeeModels.get(i).getPhotoBase64());

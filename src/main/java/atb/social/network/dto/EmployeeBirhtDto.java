@@ -5,7 +5,7 @@ public class EmployeeBirhtDto {
     private int id;
     private String name;
     private String surname;
-    private String branch;
+    private String internalNum;
     private String photo;
 
 
@@ -36,12 +36,12 @@ public class EmployeeBirhtDto {
         this.surname = surname;
     }
 
-    public String getBranch() {
-        return branch;
+    public String getInternalNum() {
+        return internalNum;
     }
 
-    public void setBranch(String branch) {
-        this.branch = branch;
+    public void setInternalNum(String internalNum) {
+        this.internalNum = internalNum;
     }
 
     public String getPhoto() {
