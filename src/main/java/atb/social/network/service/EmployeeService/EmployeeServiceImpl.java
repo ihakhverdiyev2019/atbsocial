@@ -68,6 +68,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                         employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
                         employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
                         employeeBriefDetailsDto.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
+                        employeeBriefDetailsDto.setPhoto(employeeModels.get(t).getPhotoBase64());
                         employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
 
                         employeeBriefDetailsDtos.add(employeeBriefDetailsDto);

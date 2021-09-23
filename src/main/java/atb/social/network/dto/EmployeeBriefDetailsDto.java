@@ -11,6 +11,7 @@ public class EmployeeBriefDetailsDto {
     private String position;
 
     private String internalNumber;
+    private String photo;
 
     public  EmployeeBriefDetailsDto(){
 
@@ -55,5 +56,13 @@ public class EmployeeBriefDetailsDto {
 
     public void setInternalNumber(String internalNumber) {
         this.internalNumber = internalNumber;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }
