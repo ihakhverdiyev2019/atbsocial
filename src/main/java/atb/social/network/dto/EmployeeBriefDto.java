@@ -6,6 +6,7 @@ public class EmployeeBriefDto {
 
     private String subDepartmentName;
 
+
     private List<EmployeeBriefDetailsDto> employeeBriefDetailsDtos;
 
     public EmployeeBriefDto(){

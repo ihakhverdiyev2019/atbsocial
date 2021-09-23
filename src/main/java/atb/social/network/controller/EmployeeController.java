@@ -31,17 +31,17 @@ public class EmployeeController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
     public ResponseEntity<Object> getAllEmployees(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
-        List<EmployeeBriefDto> employeeModels = new ArrayList<>();
+        EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO;
         try{
 
-            employeeModels  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));
+            employeeGetDetailsBankDTO  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));
 
 
         }catch (Exception e){
             throw new Exception(e.getMessage());
         }
 
-        return new ResponseEntity(employeeModels, HttpStatus.OK);
+        return new ResponseEntity(employeeGetDetailsBankDTO, HttpStatus.OK);
 
 
 

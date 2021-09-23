@@ -7,7 +7,7 @@ import java.util.List;
 
 public interface EmployeeService {
 
-    List<EmployeeBriefDto> getEmployeeBrief(int branchId, int departmentId) throws Exception;
+    EmployeeGetDetailsBankDTO getEmployeeBrief(int branchId, int departmentId) throws Exception;
 
     EmployeeDto getEmployeeDetails(int employeeId) throws Exception;
 

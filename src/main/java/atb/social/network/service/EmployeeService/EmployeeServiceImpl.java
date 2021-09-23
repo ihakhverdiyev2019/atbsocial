@@ -37,9 +37,11 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
 
     @Override
-    public List<EmployeeBriefDto> getEmployeeBrief(int branchId, int departmentId) throws Exception {
+    public EmployeeGetDetailsBankDTO getEmployeeBrief(int branchId, int departmentId) throws Exception {
         List<EmployeeModel> employeeModels=null;
         List<Integer> depId = new ArrayList<>();
+
+        EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO = new EmployeeGetDetailsBankDTO();
 
         List<EmployeeBriefDto> employeeBriefDtos = new ArrayList<>();
 
@@ -62,16 +64,29 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
                 for(int t = 0 ;t<employeeModels.size();t++){
                     if(employeeModels.get(t).getSubDepartment()==strNumber) {
+                        if(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName().equals("Direktor")){
+                            EmployeeBriefDetailsDto employeeBriefDetailsDto1 = new EmployeeBriefDetailsDto();
+                            employeeBriefDetailsDto1.setPhoto(employeeModels.get(t).getPhotoBase64());
+                            employeeBriefDetailsDto1.setSurname(employeeModels.get(t).getSurname());
+                            employeeBriefDetailsDto1.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
+                            employeeBriefDetailsDto1.setId(employeeModels.get(t).getId());
+                            employeeBriefDetailsDto1.setName(employeeModels.get(t).getName());
+                            employeeBriefDetailsDto1.setInternalNumber(employeeModels.get(t).getInternalNumber());
+                            employeeGetDetailsBankDTO.setDirector(employeeBriefDetailsDto1);
 
-                        EmployeeBriefDetailsDto employeeBriefDetailsDto = new EmployeeBriefDetailsDto();
-                        employeeBriefDetailsDto.setId(employeeModels.get(t).getId());
-                        employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
-                        employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
-                        employeeBriefDetailsDto.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
-                        employeeBriefDetailsDto.setPhoto(employeeModels.get(t).getPhotoBase64());
-                        employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
 
-                        employeeBriefDetailsDtos.add(employeeBriefDetailsDto);
+                        }else {
+
+                            EmployeeBriefDetailsDto employeeBriefDetailsDto = new EmployeeBriefDetailsDto();
+                            employeeBriefDetailsDto.setId(employeeModels.get(t).getId());
+                            employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
+                            employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
+                            employeeBriefDetailsDto.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
+                            employeeBriefDetailsDto.setPhoto(employeeModels.get(t).getPhotoBase64());
+                            employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
+
+                            employeeBriefDetailsDtos.add(employeeBriefDetailsDto);
+                        }
                     }
 
                 }
@@ -80,12 +95,14 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 employeeBriefDtos.add(employeeBriefDto);
 
             }
+            employeeGetDetailsBankDTO.setEmployeeBriefDtos(employeeBriefDtos);
+
 
 
         }catch (Exception e){
             throw  new Exception(e.getMessage());
         }
-        return employeeBriefDtos;
+        return employeeGetDetailsBankDTO;
     }
 
 
