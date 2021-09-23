@@ -24,7 +24,7 @@ public class EmployeeDto {
 
     private String email;
 
-    private String photoBase64;
+    private String photo;
 
     public EmployeeDto(){
 
@@ -118,11 +118,11 @@ public class EmployeeDto {
         this.email = email;
     }
 
-    public String getPhotoBase64() {
-        return photoBase64;
+    public String getPhoto() {
+        return photo;
     }
 
-    public void setPhotoBase64(String photoBase64) {
-        this.photoBase64 = photoBase64;
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

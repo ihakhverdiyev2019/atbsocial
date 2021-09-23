@@ -6,6 +6,7 @@ public class EmployeeBirhtDto {
     private String name;
     private String surname;
     private String branch;
+    private String photo;
 
 
     public EmployeeBirhtDto() {
@@ -41,5 +42,13 @@ public class EmployeeBirhtDto {
 
     public void setBranch(String branch) {
         this.branch = branch;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
     }
 }

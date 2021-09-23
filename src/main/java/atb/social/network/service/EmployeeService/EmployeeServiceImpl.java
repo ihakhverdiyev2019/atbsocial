@@ -102,7 +102,8 @@ public class EmployeeServiceImpl implements EmployeeService  {
             employeeDto.setInternalNumber(employeeModel.getInternalNumber());
             employeeDto.setName(employeeModel.getName());
             employeeDto.setPhoneNumber(employeeModel.getPhoneNumber());
-            employeeDto.setPhotoBase64(String.valueOf(employeeModel.getPhotoBase64()));
+            System.out.println("Employee Photo: " +employeeModel.getPhotoBase64());
+            employeeDto.setPhoto(employeeModel.getPhotoBase64());
             employeeDto.setPosition(positionRepository.findById(employeeModel.getPosition()).get().getPositionName());
             employeeDto.setStartJobDate(employeeModel.getStartJobDate());
             employeeDto.setSubDepartmentName(subDepartmentRepository.findById(employeeModel.getSubDepartment()).get().getName());
@@ -167,6 +168,8 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
                     employeeBirhtDto.setBranch(bankBranchRepository.findById(employeeModels.get(i).getBranchId()).get().getBranchName());
                     System.out.println("8");
+                    employeeBirhtDto.setPhoto(employeeModels.get(i).getPhotoBase64());
+                    System.out.println("Birth Photo: " + employeeModels.get(i).getPhotoBase64());
 
 
                     employeeBirhtDtos.add(employeeBirhtDto);
