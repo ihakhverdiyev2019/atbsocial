@@ -35,8 +35,8 @@ public class EmployeeModel {
 
     private String email;
 
-    @Lob
-    private byte[] photoBase64;
+    @Column(columnDefinition="TEXT")
+    private String photoBase64;
 
     public EmployeeModel(){
 
@@ -146,11 +146,11 @@ public class EmployeeModel {
         this.email = email;
     }
 
-    public byte[] getPhotoBase64() {
+    public String getPhotoBase64() {
         return photoBase64;
     }
 
-    public void setPhotoBase64(byte[] photoBase64) {
+    public void setPhotoBase64(String photoBase64) {
         this.photoBase64 = photoBase64;
     }
 }

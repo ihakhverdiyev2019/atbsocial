@@ -130,7 +130,7 @@ public class EmployeeController {
             employeeModel.setInternalNumber(employee.getInternalNum());
             employeeModel.setName(employee.getName());
             employeeModel.setPhoneNumber(employee.getNumber());
-            employeeModel.setPhotoBase64(employee.getPhoto().getBytes());
+            employeeModel.setPhotoBase64(employee.getPhoto());
             employeeModel.setPosition(employee.getPosition());
             employeeModel.setStartJobDate(employee.getStartDate());
             employeeModel.setSurname(employee.getSurname());

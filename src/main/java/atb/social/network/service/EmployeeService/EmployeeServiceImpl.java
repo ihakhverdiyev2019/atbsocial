@@ -245,7 +245,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             employeeModel.setSurname(employeeDto.getSurname());
             employeeModel.setStartJobDate(employeeDto.getStartDate());
             employeeModel.setPosition(employeeDto.getPosition());
-            employeeModel.setPhotoBase64(employeeDto.getPhoto().getBytes());
+            employeeModel.setPhotoBase64(employeeDto.getPhoto());
             employeeModel.setPhoneNumber(employeeDto.getNumber());
             employeeModel.setName(employeeDto.getName());
             employeeModel.setInternalNumber(employeeDto.getInternalNum());
