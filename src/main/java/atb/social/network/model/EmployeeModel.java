@@ -35,8 +35,8 @@ public class EmployeeModel {
 
     private String email;
 
-
-    private String photoBase64;
+    @Lob
+    private byte[] photoBase64;
 
     public EmployeeModel(){
 
@@ -146,11 +146,11 @@ public class EmployeeModel {
         this.email = email;
     }
 
-    public String getPhotoBase64() {
+    public byte[] getPhotoBase64() {
         return photoBase64;
     }
 
-    public void setPhotoBase64(String photoBase64) {
+    public void setPhotoBase64(byte[] photoBase64) {
         this.photoBase64 = photoBase64;
     }
 }
