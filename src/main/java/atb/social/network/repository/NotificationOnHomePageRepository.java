@@ -11,6 +11,8 @@ public interface NotificationOnHomePageRepository extends CrudRepository<Notific
 
 
 List<NotificationOnHomePageModel> findAllByNotDate(String date);
+    List<NotificationOnHomePageModel> findAll();
+
 
 
 

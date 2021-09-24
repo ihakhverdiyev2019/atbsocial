@@ -9,6 +9,9 @@ public interface NotificationService {
 
     List<NotificationOnHomePageModel> getNotificationByDate() throws Exception;
 
+    List<NotificationOnHomePageModel> getAllNotification() throws Exception;
+
+
 
 
 

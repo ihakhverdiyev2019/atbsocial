@@ -21,12 +21,33 @@ public class NotificationOnHomePageController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/notifications" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getBranchTime() throws Exception {
+    @RequestMapping(value = "/notifications/daily" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getDailyNotification() throws Exception {
         List<NotificationOnHomePageModel> notificationOnHomePageModelList;
         try{
 
             notificationOnHomePageModelList  = notificationService.getNotificationByDate();
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(notificationOnHomePageModelList, HttpStatus.OK);
+
+
+
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllNotification() throws Exception {
+        List<NotificationOnHomePageModel> notificationOnHomePageModelList;
+        try{
+
+            notificationOnHomePageModelList  = notificationService.getAllNotification();
 
 
         }catch (Exception e){

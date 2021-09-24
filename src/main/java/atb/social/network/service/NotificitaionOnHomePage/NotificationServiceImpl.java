@@ -39,4 +39,24 @@ public class NotificationServiceImpl implements NotificationService {
 
         return notificationOnHomePageModels;
     }
+
+
+    @Override
+    public List<NotificationOnHomePageModel> getAllNotification() throws Exception{
+
+        List<NotificationOnHomePageModel> notificationOnHomePageModels;
+        try{
+
+            notificationOnHomePageModels = notificationOnHomePageRepository.findAll();
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return notificationOnHomePageModels;
+
+
+    }
+
 }
