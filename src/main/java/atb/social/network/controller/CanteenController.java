@@ -187,13 +187,13 @@ public class CanteenController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/canteen/meal" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getMeals() throws Exception {
+    @RequestMapping(value = "/canteen/meal/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getMeals(@PathVariable("id") String id) throws Exception {
 
         List<MealModel> mealModels;
         try{
 
-            mealModels =   canteenService.getMeals();
+            mealModels =   canteenService.getMealsByCategory(Integer.parseInt(id));
 
 
         }catch (Exception e){

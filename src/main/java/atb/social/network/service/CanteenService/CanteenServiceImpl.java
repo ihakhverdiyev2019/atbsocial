@@ -206,11 +206,11 @@ return mealCategories;
 
 
     @Override
-    public List<MealModel> getMeals() throws Exception{
+    public  List<MealModel> getMealsByCategory(int id) throws Exception{
         List<MealModel> mealModels;
         try {
 
-            mealModels = mealRepository.findAll();
+            mealModels = mealRepository.findAllByCategoryId(id);
         }catch (Exception e){
             throw  new Exception(e.getMessage());
         }

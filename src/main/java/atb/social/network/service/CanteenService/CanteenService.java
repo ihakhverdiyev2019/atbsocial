@@ -15,7 +15,7 @@ public interface CanteenService {
 
     List<MealCategory> getCategory( ) throws  Exception;
 
-    List<MealModel> getMeals() throws Exception;
+    List<MealModel> getMealsByCategory(int id) throws Exception;
 
     void saveMeal(CanteenRequestDTO canteenRequestDTO) throws Exception;
 

@@ -14,4 +14,7 @@ public interface MealRepository extends CrudRepository<MealModel,Integer> {
 
     List<MealModel> findAllByCategoryId(int id);
 
+
+
+
 }
