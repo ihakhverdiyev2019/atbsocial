@@ -1,5 +1,6 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.NewsDTO;
 import atb.social.network.model.BankBranchModel;
 import atb.social.network.model.NewsModel;
 import atb.social.network.service.News.NewsService;
@@ -60,6 +61,65 @@ public class NewsController {
         }
 
         return new ResponseEntity(newsModel, HttpStatus.OK);
+
+
+
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/news/edit/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> editNews(@PathVariable("id") String nId, @RequestBody NewsDTO newsDTO) throws Exception {
+
+        try{
+
+            newsService.editNews(Integer.parseInt(nId),newsDTO);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/news/remove/{id}" , method = RequestMethod.DELETE)
+    public ResponseEntity<Object> removeNews(@PathVariable("id") String nId) throws Exception {
+
+        try{
+
+            newsService.removeNews(Integer.parseInt(nId));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/news/save" , method = RequestMethod.POST)
+    public ResponseEntity<Object> removeNews(@RequestBody NewsDTO newsDTO) throws Exception {
+
+        try{
+
+            newsService.saveNews(newsDTO);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
 
 
 

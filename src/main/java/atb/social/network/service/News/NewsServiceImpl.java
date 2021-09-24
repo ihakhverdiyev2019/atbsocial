@@ -1,5 +1,6 @@
 package atb.social.network.service.News;
 
+import atb.social.network.dto.NewsDTO;
 import atb.social.network.model.NewsModel;
 import atb.social.network.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,4 +53,49 @@ public class NewsServiceImpl implements NewsService {
         }
         return newsModels;
     }
+
+
+    @Override
+    public void saveNews(NewsDTO newsDTO) throws Exception{
+        try {
+            NewsModel newsModel =  new NewsModel();
+
+            newsModel.setPhoto(newsDTO.getPhoto());
+            newsModel.setText(newsDTO.getText());
+            newsModel.setTitle(newsDTO.getTitle());
+            newsRepository.save(newsModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public void editNews( int id,NewsDTO newsDTO) throws Exception{
+        try {
+            NewsModel newsModel = newsRepository.findById(id);
+
+            newsModel.setPhoto(newsDTO.getPhoto());
+            newsModel.setText(newsDTO.getText());
+            newsModel.setTitle(newsDTO.getTitle());
+            newsRepository.save(newsModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
+    @Override
+    public void removeNews(int id) throws Exception{
+        try {
+            NewsModel newsModel = newsRepository.findById(id);
+
+
+            newsRepository.delete(newsModel);
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+    }
+
 }
