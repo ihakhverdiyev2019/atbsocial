@@ -205,6 +205,22 @@ return mealCategories;
     }
 
 
+    @Override
+    public List<MealModel> getMeals() throws Exception{
+        List<MealModel> mealModels;
+        try {
+
+            mealModels = mealRepository.findAll();
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+
+
+        return mealModels;
+    }
+
+
+
 
 
 

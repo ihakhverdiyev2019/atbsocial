@@ -4,6 +4,7 @@ import atb.social.network.dto.CanteenDto;
 import atb.social.network.dto.CanteenRequestDTO;
 import atb.social.network.dto.CategoryDTO;
 import atb.social.network.model.MealCategory;
+import atb.social.network.model.MealModel;
 
 import java.util.List;
 
@@ -13,6 +14,8 @@ public interface CanteenService {
     List<CanteenDto> getCanteenData() throws Exception;
 
     List<MealCategory> getCategory( ) throws  Exception;
+
+    List<MealModel> getMeals() throws Exception;
 
     void saveMeal(CanteenRequestDTO canteenRequestDTO) throws Exception;
 

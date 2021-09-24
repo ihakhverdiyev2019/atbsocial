@@ -4,6 +4,7 @@ import atb.social.network.dto.CanteenDto;
 import atb.social.network.dto.CanteenRequestDTO;
 import atb.social.network.dto.CategoryDTO;
 import atb.social.network.model.MealCategory;
+import atb.social.network.model.MealModel;
 import atb.social.network.model.QuoteModel;
 import atb.social.network.service.CanteenService.CanteenService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -184,6 +185,26 @@ public class CanteenController {
 
     }
 
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/canteen/meal" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getMeals() throws Exception {
+
+        List<MealModel> mealModels;
+        try{
+
+            mealModels =   canteenService.getMeals();
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(mealModels, HttpStatus.OK);
+
+
+
+    }
 
 
 
