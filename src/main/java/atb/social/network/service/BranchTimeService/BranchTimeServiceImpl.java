@@ -1,6 +1,7 @@
 package atb.social.network.service.BranchTimeService;
 
 
+import atb.social.network.dto.BranchTimeDTO;
 import atb.social.network.model.BranchTimeModel;
 import atb.social.network.repository.BranchTimeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,4 +28,23 @@ public class BranchTimeServiceImpl implements BranchTimeService{
         }
         return branchTimeModels;
     }
+
+
+
+
+    @Override
+    public void  saveBranchData(BranchTimeDTO branchTimeDTO) throws Exception{
+        try {
+            BranchTimeModel branchTimeModel = new BranchTimeModel();
+            branchTimeModel.setBranchName(branchTimeDTO.getBranchName());
+            branchTimeModel.setTime(branchTimeDTO.getTime());
+            branchTimeRepository.save(branchTimeModel);
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+
+
+    }
+
 }
