@@ -4,6 +4,7 @@ public class NotificationDTO {
 
     private String text;
 
+
     public NotificationDTO() {
     }
 
@@ -14,4 +15,6 @@ public class NotificationDTO {
     public void setText(String text) {
         this.text = text;
     }
+
+
 }

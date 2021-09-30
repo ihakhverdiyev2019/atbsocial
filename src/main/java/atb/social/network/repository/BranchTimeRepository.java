@@ -11,4 +11,8 @@ import java.util.List;
 public interface BranchTimeRepository extends CrudRepository<BranchTimeModel,Integer> {
 
     List<BranchTimeModel> findAll();
+
+    BranchTimeModel findByBranchName(String name);
+
+    BranchTimeModel findByBranchNameAndType(String branchName, String type);
 }

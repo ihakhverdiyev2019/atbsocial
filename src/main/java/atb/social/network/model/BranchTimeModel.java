@@ -13,10 +13,21 @@ public class BranchTimeModel {
     private int id;
 
     private String branchName;
-    private String time;
+    private String type;
+    private String startTime;
+    private String endTime;
+
 
 
     public BranchTimeModel() {
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 
     public int getId() {
@@ -35,11 +46,19 @@ public class BranchTimeModel {
         this.branchName = branchName;
     }
 
-    public String getTime() {
-        return time;
+    public String getStartTime() {
+        return startTime;
     }
 
-    public void setTime(String time) {
-        this.time = time;
+    public void setStartTime(String startTime) {
+        this.startTime = startTime;
+    }
+
+    public String getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(String endTime) {
+        this.endTime = endTime;
     }
 }

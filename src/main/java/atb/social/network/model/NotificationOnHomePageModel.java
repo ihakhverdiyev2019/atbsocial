@@ -11,7 +11,10 @@ public class NotificationOnHomePageModel {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String notificationText;
-    private String notDate;
+    private String filterDate;
+    private int status;
+
+    private String date;
 
     public NotificationOnHomePageModel() {
     }
@@ -32,11 +35,29 @@ public class NotificationOnHomePageModel {
         this.notificationText = notificationText;
     }
 
-    public String getNotDate() {
-        return notDate;
+
+
+    public int getStatus() {
+        return status;
     }
 
-    public void setNotDate(String notDate) {
-        this.notDate = notDate;
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getFilterDate() {
+        return filterDate;
+    }
+
+    public void setFilterDate(String filterDate) {
+        this.filterDate = filterDate;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }

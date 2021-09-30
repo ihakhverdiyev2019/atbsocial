@@ -1,6 +1,8 @@
 package atb.social.network.model;
 
 
+import org.springframework.lang.Nullable;
+
 import javax.persistence.*;
 import java.sql.Clob;
 
@@ -17,6 +19,7 @@ public class EmployeeModel {
 
     private int branchId;
 
+    @Nullable
     private String filterBirth;
 
     private int departmentId;
@@ -24,18 +27,24 @@ public class EmployeeModel {
     private int subDepartment;
 
     private int position;
+    @Nullable
 
     private String internalNumber;
 
+    @Nullable
     private String birhtDate;
+    @Nullable
 
     private String phoneNumber;
+    @Nullable
 
     private String startJobDate;
+    @Nullable
 
     private String email;
 
     @Column(columnDefinition="TEXT")
+    @Nullable
     private String photoBase64;
 
     public EmployeeModel(){

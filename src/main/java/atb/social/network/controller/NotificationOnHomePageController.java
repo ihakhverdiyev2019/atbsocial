@@ -1,16 +1,14 @@
 package atb.social.network.controller;
 
 
+import atb.social.network.dto.NotificationDTO;
 import atb.social.network.model.NotificationOnHomePageModel;
 import atb.social.network.service.NotificitaionOnHomePage.NotificationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Repository;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -61,4 +59,81 @@ public class NotificationOnHomePageController {
 
 
     }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications/save" , method = RequestMethod.POST)
+    public ResponseEntity<Object> saveNotification(@RequestBody NotificationDTO notificationDTO) throws Exception {
+
+        try{
+
+            notificationService.save(notificationDTO);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications/update/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> updateNotification(@RequestBody NotificationDTO notificationDTO,@PathVariable("id") String id) throws Exception {
+
+        try{
+
+            notificationService.update(notificationDTO,Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications/remove/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> removeNotification(@PathVariable("id") String id) throws Exception {
+
+        try{
+
+            notificationService.remove(Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications/status/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> changeStatusNotification(@PathVariable("id") String id) throws Exception {
+
+        try{
+
+            notificationService.statusUpdate(Integer.parseInt(id));
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
 }

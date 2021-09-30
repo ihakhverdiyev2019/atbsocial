@@ -45,7 +45,7 @@ public class DocumentController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/documents/remove/{id}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/documents/remove/{id}" , method = RequestMethod.DELETE)
     public ResponseEntity<Object> removeDocuments(@PathVariable("id") String id) throws Exception {
 
         try{
@@ -65,7 +65,7 @@ public class DocumentController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/documents/edit/{id}" , method = RequestMethod.GET)
+    @RequestMapping(value = "/documents/edit/{id}" , method = RequestMethod.POST)
     public ResponseEntity<Object> editDocuments(@RequestBody DocumentDTO documentDTO, @PathVariable("id") String id) throws Exception {
 
         try{
@@ -86,10 +86,12 @@ public class DocumentController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/documents/save" , method = RequestMethod.GET)
-    public ResponseEntity<Object> editDocuments(@RequestBody DocumentDTO documentDTO) throws Exception {
+    @RequestMapping(value = "/documents/save" , method = RequestMethod.POST)
+    public ResponseEntity<Object> saveDocuments(@RequestBody DocumentDTO documentDTO) throws Exception {
 
         try{
+            System.out.println(documentDTO.getName());
+            System.out.println(documentDTO.getDocument());
 
             documentService.save(documentDTO);
 
@@ -109,7 +111,7 @@ public class DocumentController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/documents/{id}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> editDocuments(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<Object> getDocument(@PathVariable("id") String id) throws Exception {
         DocumentsModel documentsModel;
 
         try{

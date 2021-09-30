@@ -1,6 +1,7 @@
 package atb.social.network.service.EmployeeService;
 
 import atb.social.network.dto.*;
+import atb.social.network.model.BankBranchModel;
 import atb.social.network.model.EmployeeEditHistory;
 import atb.social.network.model.EmployeeModel;
 import atb.social.network.repository.*;
@@ -8,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService  {
@@ -38,16 +36,25 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
     @Override
     public EmployeeGetDetailsBankDTO getEmployeeBrief(int branchId, int departmentId) throws Exception {
-        List<EmployeeModel> employeeModels=null;
         List<Integer> depId = new ArrayList<>();
-
+        System.out.println("Branch ID: " + branchId);
+        System.out.println("Department ID: " +departmentId);
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO = new EmployeeGetDetailsBankDTO();
+        BankBranchModel bankBranchModel = bankBranchRepository.findById(branchId).get();
+        if(bankBranchModel.getIsMainBranch()==1){
+            employeeGetDetailsBankDTO.setBranch(bankDepartmentRepository.findById(departmentId).get().getDepartmentName());
+        }else {
+            employeeGetDetailsBankDTO.setBranch(bankBranchModel.getBranchName());
+        }
 
         List<EmployeeBriefDto> employeeBriefDtos = new ArrayList<>();
         List<EmployeeBriefDetailsDto> main = new ArrayList<>();
 
         try {
-            employeeModels= employeeRepository.findAllByBranchIdAndDepartmentId(branchId,departmentId);
+            System.out.println(branchId);
+            System.out.println(departmentId);
+            List<EmployeeModel> employeeModels = employeeRepository.findAllByBranchIdAndDepartmentId(branchId,departmentId);
+            System.out.println("Result Size: " + employeeModels.size());
 
             for(int i =0;i<employeeModels.size();i++){
 
@@ -60,8 +67,11 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
             for(Integer strNumber : hset){
                 EmployeeBriefDto employeeBriefDto  = new EmployeeBriefDto();
-                employeeBriefDto.setSubDepartmentName(subDepartmentRepository.findById(strNumber).get().getName());
+                if(strNumber!=0) {
+                    employeeBriefDto.setSubDepartmentName(subDepartmentRepository.findById(strNumber).get().getName());
+                }
                 List<EmployeeBriefDetailsDto> employeeBriefDetailsDtos = new ArrayList<>();
+
 
                 for(int t = 0 ;t<employeeModels.size();t++){
                     if(employeeModels.get(t).getSubDepartment()==strNumber) {
@@ -70,6 +80,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                             employeeBriefDetailsDto1.setPhoto(employeeModels.get(t).getPhotoBase64());
                             employeeBriefDetailsDto1.setSurname(employeeModels.get(t).getSurname());
                             employeeBriefDetailsDto1.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
+                            employeeBriefDetailsDto1.setImportance(positionRepository.findById(employeeModels.get(t).getPosition()).get().getImportance());
                             employeeBriefDetailsDto1.setId(employeeModels.get(t).getId());
                             employeeBriefDetailsDto1.setName(employeeModels.get(t).getName());
                             employeeBriefDetailsDto1.setInternalNumber(employeeModels.get(t).getInternalNumber());
@@ -83,6 +94,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                             employeeBriefDetailsDto.setInternalNumber(employeeModels.get(t).getInternalNumber());
                             employeeBriefDetailsDto.setName(employeeModels.get(t).getName());
                             employeeBriefDetailsDto.setPosition(positionRepository.findById(employeeModels.get(t).getPosition()).get().getPositionName());
+                            employeeBriefDetailsDto.setImportance(positionRepository.findById(employeeModels.get(t).getPosition()).get().getImportance());
                             employeeBriefDetailsDto.setPhoto(employeeModels.get(t).getPhotoBase64());
                             employeeBriefDetailsDto.setSurname(employeeModels.get(t).getSurname());
 
@@ -92,6 +104,9 @@ public class EmployeeServiceImpl implements EmployeeService  {
 
                 }
 
+                Collections.sort(employeeBriefDetailsDtos,
+                        Comparator.comparingInt(
+                                EmployeeBriefDetailsDto::getImportance));
                 employeeBriefDto.setEmployeeBriefDetailsDtos(employeeBriefDetailsDtos);
                 employeeBriefDtos.add(employeeBriefDto);
 
@@ -116,17 +131,25 @@ public class EmployeeServiceImpl implements EmployeeService  {
             employeeModel= employeeRepository.findById(employeeId);
             employeeDto.setBirhtDate(employeeModel.getBirhtDate());
             employeeDto.setBranchName(bankBranchRepository.findById(employeeModel.getBranchId()).get().getBranchName());
-            employeeDto.setDepartmentName(bankDepartmentRepository.findById(employeeModel.getDepartmentId()).get().getDepartmentName() != null ? bankDepartmentRepository.findById(employeeModel.getDepartmentId()).get().getDepartmentName()
-                    :null);
+            if(employeeModel.getDepartmentId()!=0) {
+                employeeDto.setDepartmentName(bankDepartmentRepository.findById(employeeModel.getDepartmentId()).get().getDepartmentName() != null ? bankDepartmentRepository.findById(employeeModel.getDepartmentId()).get().getDepartmentName()
+                        : null);
+            }
             employeeDto.setEmail(employeeModel.getEmail());
             employeeDto.setInternalNumber(employeeModel.getInternalNumber());
             employeeDto.setName(employeeModel.getName());
             employeeDto.setPhoneNumber(employeeModel.getPhoneNumber());
-            System.out.println("Employee Photo: " +employeeModel.getPhotoBase64());
             employeeDto.setPhoto(employeeModel.getPhotoBase64());
             employeeDto.setPosition(positionRepository.findById(employeeModel.getPosition()).get().getPositionName());
             employeeDto.setStartJobDate(employeeModel.getStartJobDate());
-            employeeDto.setSubDepartmentName(subDepartmentRepository.findById(employeeModel.getSubDepartment()).get().getName());
+            if( positionRepository.findById(employeeModel.getPosition()).get().getImportance()!=0) {
+
+                if(employeeModel.getSubDepartment()!=0) {
+                    employeeDto.setSubDepartmentName(subDepartmentRepository.findById(employeeModel.getSubDepartment()).get().getName() != null ? subDepartmentRepository.findById(employeeModel.getSubDepartment()).get().getName()
+                            : null);
+                }
+            }
+
             employeeDto.setSurname(employeeModel.getSurname());
 
 
@@ -189,7 +212,6 @@ public class EmployeeServiceImpl implements EmployeeService  {
                     employeeBirhtDto.setInternalNum(employeeModels.get(i).getInternalNumber());
                     System.out.println("8");
                     employeeBirhtDto.setPhoto(employeeModels.get(i).getPhotoBase64());
-                    System.out.println("Birth Photo: " + employeeModels.get(i).getPhotoBase64());
 
 
                     employeeBirhtDtos.add(employeeBirhtDto);
@@ -221,6 +243,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 employeeEditHistory.setStatus("Yeni əməkdaş");
                 employeeEditHistory.setfPosition(employeeModel.getPosition());
                 employeeEditHistory.setEmployeeId(employeeModel.getId());
+
                 String pattern = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 

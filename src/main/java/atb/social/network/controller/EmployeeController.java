@@ -34,6 +34,8 @@ public class EmployeeController {
     public ResponseEntity<Object> getAllEmployees(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO;
         try{
+            System.out.println("Branch ID: " + bID);
+            System.out.println("Department ID: " +dID);
 
             employeeGetDetailsBankDTO  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));
 
@@ -118,14 +120,19 @@ public class EmployeeController {
     @RequestMapping(value = "/employees/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
         try{
-            String str = employee.getBirthDay();
-            String result = str.substring(5);
-            result = result.replaceAll("-", "");
-
             EmployeeModel employeeModel = new EmployeeModel();
-            employeeModel.setBirhtDate(employee.getBirthDay());
+
+            if(!employee.getBirthDay().equals("")) {
+
+                String str = employee.getBirthDay();
+                String result = str.substring(5);
+                result = result.replaceAll("-", "");
+
+                employeeModel.setBirhtDate(employee.getBirthDay());
+                employeeModel.setFilterBirth(result);
+
+            }
             employeeModel.setBranchId(employee.getBranchId());
-            employeeModel.setFilterBirth(result);
             employeeModel.setBirhtDate(employee.getBirthDay());
             employeeModel.setEmail(employee.getEmail());
             employeeModel.setInternalNumber(employee.getInternalNum());
