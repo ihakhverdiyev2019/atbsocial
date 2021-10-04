@@ -9,6 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.temporal.ChronoField;
 import java.util.*;
 
 @Service
@@ -37,8 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
     @Override
     public EmployeeGetDetailsBankDTO getEmployeeBrief(int branchId, int departmentId) throws Exception {
         List<Integer> depId = new ArrayList<>();
-        System.out.println("Branch ID: " + branchId);
-        System.out.println("Department ID: " +departmentId);
+
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO = new EmployeeGetDetailsBankDTO();
         BankBranchModel bankBranchModel = bankBranchRepository.findById(branchId).get();
         if(bankBranchModel.getIsMainBranch()==1){
@@ -51,10 +53,8 @@ public class EmployeeServiceImpl implements EmployeeService  {
         List<EmployeeBriefDetailsDto> main = new ArrayList<>();
 
         try {
-            System.out.println(branchId);
-            System.out.println(departmentId);
+
             List<EmployeeModel> employeeModels = employeeRepository.findAllByBranchIdAndDepartmentId(branchId,departmentId);
-            System.out.println("Result Size: " + employeeModels.size());
 
             for(int i =0;i<employeeModels.size();i++){
 
@@ -62,8 +62,7 @@ public class EmployeeServiceImpl implements EmployeeService  {
             }
 
             HashSet<Integer> hset = new HashSet<>(depId);
-            System.out.println(hset.size());
-            System.out.println(hset);
+
 
             for(Integer strNumber : hset){
                 EmployeeBriefDto employeeBriefDto  = new EmployeeBriefDto();
@@ -165,11 +164,15 @@ public class EmployeeServiceImpl implements EmployeeService  {
     }
 
     @Override
-    public   EmployeesBirthDayList  getEmployeeBirth() throws Exception {
+    public   List<EmployeesBirthDayList>  getEmployeeBirth() throws Exception {
 
 
-        EmployeesBirthDayList employeesBirthDayList = new EmployeesBirthDayList();
+        List<EmployeesBirthDayList> employeesBirthDayList = new ArrayList<>();
         List<EmployeeBirhtDto> employeeBirhtDtos = new ArrayList<>();
+        List<EmployeeBirhtDto> employeeBirhtDtosYesterday = new ArrayList<>();
+        List<EmployeeBirhtDto> employeeBirhtDtosTwoDays = new ArrayList<>();
+
+
 
 
         try {
@@ -184,43 +187,154 @@ public class EmployeeServiceImpl implements EmployeeService  {
             String str = date;
             String result = str.substring(5);
             result = result.replaceAll("-", "");
-            System.out.println("Date Result: " + result);
-            employeesBirthDayList.setDate(simpleDateFormatShow.format(new Date()));
+            LocalDate today = LocalDate.now();
+
+            DayOfWeek day = DayOfWeek.of(today.get(ChronoField.DAY_OF_WEEK));
+
+
+            if(day == DayOfWeek.FRIDAY){
+
+                Date date1 = simpleDateFormat.parse(date);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(date1);
+                calendar.add(Calendar.DATE, -1);
+                Date yesterday = calendar.getTime();
+
+                Calendar calendar1 = Calendar.getInstance();
+                calendar1.setTime(date1);
+                calendar1.add(Calendar.DATE, -2);
+                Date twoDaysBefore = calendar1.getTime();
+
+
+                String yesterdayShow = simpleDateFormatShow.format(yesterday);
+                String twoDaysBeforeShow = simpleDateFormatShow.format(twoDaysBefore);
+
+                String yesterdayString = simpleDateFormat.format(yesterday);
+                String twoDaysBeforeString = simpleDateFormat.format(twoDaysBefore);
+
+
+                String yesterdayStringResult = str.substring(5);
+                yesterdayStringResult = yesterdayStringResult.replaceAll("-", "");
+
+
+                String twoDaysBeforeStringResult = str.substring(5);
+                twoDaysBeforeStringResult = twoDaysBeforeStringResult.replaceAll("-", "");
+
+                List<EmployeeModel> twoDaysBeforeStringEmpResult = employeeRepository.findAllByFilterBirth(twoDaysBeforeStringResult);
+
+                List<EmployeeModel> yesterdayStringEmpResult = employeeRepository.findAllByFilterBirth(yesterdayStringResult);
+
+
+            if(yesterdayStringEmpResult.size()>0) {
+                EmployeesBirthDayList employeesBirthDayList3 = new EmployeesBirthDayList();
+                employeesBirthDayList3.setDate(yesterdayShow);
+
+
+                for (int y = 0; y < yesterdayStringEmpResult.size(); y++) {
+
+
+                    EmployeeBirhtDto employeeBirhtDtoY = new EmployeeBirhtDto();
+
+                    employeeBirhtDtoY.setId(yesterdayStringEmpResult.get(y).getId());
+
+                    employeeBirhtDtoY.setName(yesterdayStringEmpResult.get(y).getName());
+
+                    employeeBirhtDtoY.setSurname(yesterdayStringEmpResult.get(y).getSurname());
+
+                    employeeBirhtDtoY.setInternalNum(yesterdayStringEmpResult.get(y).getInternalNumber());
+                    employeeBirhtDtoY.setPhoto(yesterdayStringEmpResult.get(y).getPhotoBase64());
+
+
+                    employeeBirhtDtosTwoDays.add(employeeBirhtDtoY);
+
+
+
+                }
+
+                employeesBirthDayList3.setEmployeeBirhtDtoList(employeeBirhtDtosTwoDays);
+                employeesBirthDayList.add(employeesBirthDayList3);
+
+
+            }
+
+
+                if(twoDaysBeforeStringEmpResult.size()>0) {
+                    EmployeesBirthDayList employeesBirthDayList1 = new EmployeesBirthDayList();
+                    employeesBirthDayList1.setDate(twoDaysBeforeShow);
+
+                    for (int u = 0; u < twoDaysBeforeStringEmpResult.size(); u++) {
+
+
+                        EmployeeBirhtDto employeeBirhtDtoT = new EmployeeBirhtDto();
+
+                        employeeBirhtDtoT.setId(twoDaysBeforeStringEmpResult.get(u).getId());
+
+                        employeeBirhtDtoT.setName(twoDaysBeforeStringEmpResult.get(u).getName());
+
+                        employeeBirhtDtoT.setSurname(twoDaysBeforeStringEmpResult.get(u).getSurname());
+
+                        employeeBirhtDtoT.setInternalNum(twoDaysBeforeStringEmpResult.get(u).getInternalNumber());
+                        employeeBirhtDtoT.setPhoto(twoDaysBeforeStringEmpResult.get(u).getPhotoBase64());
+
+
+                        employeeBirhtDtosYesterday.add(employeeBirhtDtoT);
+
+
+
+                    }
+
+                    employeesBirthDayList1.setEmployeeBirhtDtoList(employeeBirhtDtosYesterday);
+                    employeesBirthDayList.add(employeesBirthDayList1);
+
+
+                }
+
+
+
+
+
+
+            }
 
 
             List<EmployeeModel> employeeModels = employeeRepository.findAllByFilterBirth(result);
-            System.out.println("Birth Size: " + employeeModels.size());
-            System.out.println("1");
             if(employeeModels.size()>0) {
-                System.out.println("2");
+                EmployeesBirthDayList employeesBirthDayList2 = new EmployeesBirthDayList();
+                employeesBirthDayList2.setDate(simpleDateFormatShow.format(new Date()));
+
+
+
 
                 for (int i = 0; i < employeeModels.size(); i++) {
-                    System.out.println("3");
+
+
+
 
                     EmployeeBirhtDto employeeBirhtDto = new EmployeeBirhtDto();
-                    System.out.println("4");
 
                     employeeBirhtDto.setId(employeeModels.get(i).getId());
-                    System.out.println("5");
 
                     employeeBirhtDto.setName(employeeModels.get(i).getName());
-                    System.out.println("6");
 
                     employeeBirhtDto.setSurname(employeeModels.get(i).getSurname());
-                    System.out.println("7");
 
                     employeeBirhtDto.setInternalNum(employeeModels.get(i).getInternalNumber());
-                    System.out.println("8");
                     employeeBirhtDto.setPhoto(employeeModels.get(i).getPhotoBase64());
 
 
+
+
                     employeeBirhtDtos.add(employeeBirhtDto);
-                    System.out.println("9");
+
+
 
                 }
+
+
+                employeesBirthDayList2.setEmployeeBirhtDtoList(employeeBirhtDtos);
+                employeesBirthDayList.add(employeesBirthDayList2);
+
             }
-            employeesBirthDayList.setEmployeeBirhtDtoList(employeeBirhtDtos);
-            System.out.println("Result size: " + employeeBirhtDtos.size() );
 
 
 
@@ -237,10 +351,17 @@ public class EmployeeServiceImpl implements EmployeeService  {
     @Override
     public void save(EmployeeModel employeeModel) throws Exception {
         try {
+
+            if(employeeModel.getPosition()!=0) {
+                employeeModel.setPositionName(positionRepository.findById(employeeModel.getPosition()).get().getPositionName());
+            }
+
             employeeRepository.save(employeeModel);
-            if(employeeModel.getId()>=400){
+            if(employeeModel.getId()>=1){
                 EmployeeEditHistory employeeEditHistory  = new EmployeeEditHistory();
                 employeeEditHistory.setStatus("Yeni əməkdaş");
+                employeeEditHistory.setfBranch(employeeModel.getBranchId());
+                employeeEditHistory.setfDepartment(employeeModel.getDepartmentId());
                 employeeEditHistory.setfPosition(employeeModel.getPosition());
                 employeeEditHistory.setEmployeeId(employeeModel.getId());
 
@@ -263,10 +384,11 @@ public class EmployeeServiceImpl implements EmployeeService  {
     }
 
     @Override
-    public void edit(EmployeeSaveDto employeeDto, int id, int checkBox) throws Exception {
+    public void edit(EmployeeEditDto employeeDto, int id) throws Exception {
         try{
             EmployeeModel employeeModel = employeeRepository.findById(id);
-            if(checkBox==1) {
+
+            if(employeeDto.getCheckBox()==1) {
                 EmployeeEditHistory employeeEditHistory = new EmployeeEditHistory();
                 String pattern = "yyyy-MM-dd";
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
@@ -281,8 +403,11 @@ public class EmployeeServiceImpl implements EmployeeService  {
                 employeeEditHistory.setStatus("Vəzifə dəyişikliyi");
                 employeeEditHistory.setfPosition(employeeModel.getPosition());
                 employeeEditHistory.setlPosition(employeeDto.getPosition());
+                employeeEditHistory.setfBranch(employeeModel.getBranchId());
+                employeeEditHistory.setlBranch(employeeDto.getBranchId());
+                employeeEditHistory.setfDepartment(employeeModel.getDepartmentId());
+                employeeEditHistory.setlDepartment(employeeDto.getDepartId());
                 employeeEditHistoryRepository.save(employeeEditHistory);
-
 
             }
 
@@ -313,6 +438,47 @@ public class EmployeeServiceImpl implements EmployeeService  {
         }
 
     }
+
+
+
+    @Override
+   public List<EmployeeModel> getAllEmployee( ) throws Exception{
+        List<EmployeeModel> employeeModels;
+
+        try{
+            employeeModels =employeeRepository.findAll();
+
+
+
+
+
+
+
+
+        }catch (Exception e) {
+
+throw new Exception(e.getMessage());
+        }
+
+return employeeModels;
+
+    }
+
+
+
+    @Override
+    public void remove(int id) throws Exception {
+        try {
+            EmployeeModel employeeModel = employeeRepository.findById(id);
+            employeeRepository.delete(employeeModel);
+
+
+        }catch (Exception e){
+            throw  new Exception(e.getMessage());
+        }
+    }
+
+
 
 
 }

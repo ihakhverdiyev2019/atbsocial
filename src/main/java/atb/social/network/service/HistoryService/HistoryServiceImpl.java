@@ -3,9 +3,7 @@ package atb.social.network.service.HistoryService;
 import atb.social.network.dto.EmployeePositionChangesDto;
 import atb.social.network.model.EmployeeEditHistory;
 import atb.social.network.model.EmployeeModel;
-import atb.social.network.repository.EmployeeEditHistoryRepository;
-import atb.social.network.repository.EmployeeRepository;
-import atb.social.network.repository.PositionRepository;
+import atb.social.network.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +17,13 @@ public class HistoryServiceImpl implements HistoryService {
 
     @Autowired
     private EmployeeEditHistoryRepository employeeEditHistoryRepository;
+
+
+    @Autowired
+    private BankBranchRepository bankBranchRepository;
+
+    @Autowired
+    private BankDepartmentRepository departmentRepository;
 
     @Autowired
     private EmployeeRepository employeeRepository;
@@ -48,13 +53,53 @@ public class HistoryServiceImpl implements HistoryService {
                 EmployeeModel employeeModel = employeeRepository.findById(employeeEditHistories.get(i).getEmployeeId());
 
                 employeePositionChangesDto.setName(employeeModel.getName());
+
                 employeePositionChangesDto.setSurname(employeeModel.getSurname());
-                employeePositionChangesDto.setfPosition(positionRepository.findById(employeeEditHistories.get(i).getfPosition()).get().getPositionName());
+
+
+                if(employeeEditHistories.get(i).getfPosition()!=0) {
+
+                    employeePositionChangesDto.setfPosition(positionRepository.findById(employeeEditHistories.get(i).getfPosition()).get().getPositionName());
+                }
+
+                if(employeeEditHistories.get(i).getlPosition()!=0) {
+
+                    employeePositionChangesDto.setlPosition(positionRepository.findById(employeeEditHistories.get(i).getlPosition()).get().getPositionName());
+                }
+
+
+                if(employeeEditHistories.get(i).getfBranch()!=0) {
+
+                    employeePositionChangesDto.setfBranch(bankBranchRepository.findById(employeeEditHistories.get(i).getfBranch()).get().getBranchName());
+                }
+
+                if(employeeEditHistories.get(i).getlBranch()!=0) {
+
+                    employeePositionChangesDto.setlBranch(bankBranchRepository.findById(employeeEditHistories.get(i).getlBranch()).get().getBranchName());
+                }
+
+
+                if(employeeEditHistories.get(i).getfDepartment()!=0) {
+
+                    employeePositionChangesDto.setfDepartment(departmentRepository.findById(employeeEditHistories.get(i).getfDepartment()).get().getDepartmentName());
+                }
+
+                if(employeeEditHistories.get(i).getlDepartment()!=0) {
+
+                    employeePositionChangesDto.setlDepartment(departmentRepository.findById(employeeEditHistories.get(i).getlDepartment()).get().getDepartmentName());
+                }
+
+
+                employeePositionChangesDto.setPhoto(employeeModel.getPhotoBase64());
+
+                employeePositionChangesDto.setEmpId(employeeModel.getId());
+
                 employeePositionChangesDto.setInternalNumber(employeeModel.getInternalNumber());
-                employeePositionChangesDto.setlPosition(positionRepository.findById(employeeEditHistories.get(i).getlPosition()).get().getPositionName());
+
                 employeePositionChangesDto.setStatus(employeeEditHistories.get(i).getStatus());
 
                 employeePositionChangesDtos.add(employeePositionChangesDto);
+
 
 
 

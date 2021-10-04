@@ -31,9 +31,7 @@ public class NotificationServiceImpl implements NotificationService {
             String pattern = " ddMMyyyy";
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
             String date = simpleDateFormat.format(new Date());
-            System.out.println(date);
             notificationOnHomePageModels = notificationOnHomePageRepository.findAllByFilterDateAndStatus(date,1);
-            System.out.println(notificationOnHomePageModels.size());
             Collections.reverse(notificationOnHomePageModels);
 
 
@@ -64,6 +62,25 @@ public class NotificationServiceImpl implements NotificationService {
 
     }
 
+
+    @Override
+    public List<NotificationOnHomePageModel> getAllNotificationAll() throws Exception{
+
+        List<NotificationOnHomePageModel> notificationOnHomePageModels;
+        try{
+
+            notificationOnHomePageModels = notificationOnHomePageRepository.findAll();
+            Collections.reverse(notificationOnHomePageModels);
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return notificationOnHomePageModels;
+
+
+    }
 
 
 

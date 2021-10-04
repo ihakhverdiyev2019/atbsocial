@@ -148,7 +148,7 @@ public class CanteenController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/canteen/category/remove/{id}" , method = RequestMethod.DELETE)
-    public ResponseEntity<Object> editCategory(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<Object> removeCategory(@PathVariable("id") String id) throws Exception {
 
         try{
 

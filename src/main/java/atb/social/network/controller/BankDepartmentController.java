@@ -31,9 +31,8 @@ public class BankDepartmentController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/departments/{id}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllBranches(@PathVariable("id") String id) throws Exception {
+    public ResponseEntity<Object> getAllDepartmentsByBranchId(@PathVariable("id") String id) throws Exception {
         List<BankDepartmenModel> departmentByBranchId ;
-        System.out.println(id);
         try{
 
             departmentByBranchId  = bankDepartmentService.getByBranchId(Integer.parseInt(id));

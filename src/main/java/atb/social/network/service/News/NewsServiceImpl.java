@@ -6,7 +6,9 @@ import atb.social.network.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -60,6 +62,12 @@ public class NewsServiceImpl implements NewsService {
         try {
             NewsModel newsModel =  new NewsModel();
 
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("EEE MMM dd HH:mm:ss");
+
+            String date = simpleDateFormat.format(new Date());
+            System.out.println(date);
+
+            newsModel.setDate(date);
             newsModel.setPhoto(newsDTO.getPhoto());
             newsModel.setText(newsDTO.getText());
             newsModel.setTitle(newsDTO.getTitle());

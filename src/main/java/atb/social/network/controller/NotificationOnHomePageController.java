@@ -62,6 +62,26 @@ public class NotificationOnHomePageController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/notifications/all" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllNotificationInAdmin() throws Exception {
+        List<NotificationOnHomePageModel> notificationOnHomePageModelList;
+        try{
+
+            notificationOnHomePageModelList  = notificationService.getAllNotificationAll();
+
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(notificationOnHomePageModelList, HttpStatus.OK);
+
+
+
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/notifications/save" , method = RequestMethod.POST)
     public ResponseEntity<Object> saveNotification(@RequestBody NotificationDTO notificationDTO) throws Exception {
 

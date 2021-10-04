@@ -12,6 +12,9 @@ public interface NotificationService {
 
     List<NotificationOnHomePageModel> getAllNotification() throws Exception;
 
+    List<NotificationOnHomePageModel> getAllNotificationAll() throws Exception;
+
+
     void save (NotificationDTO notificationDTO) throws Exception;
 
     void update (NotificationDTO notificationDTO, int id) throws Exception;

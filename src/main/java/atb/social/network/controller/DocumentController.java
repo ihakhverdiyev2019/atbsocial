@@ -90,8 +90,6 @@ public class DocumentController {
     public ResponseEntity<Object> saveDocuments(@RequestBody DocumentDTO documentDTO) throws Exception {
 
         try{
-            System.out.println(documentDTO.getName());
-            System.out.println(documentDTO.getDocument());
 
             documentService.save(documentDTO);
 

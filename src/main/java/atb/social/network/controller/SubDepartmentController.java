@@ -24,7 +24,7 @@ public class SubDepartmentController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/subDepart/{bid}/{did}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllBranches(@PathVariable("bid") String bid, @PathVariable("did") String did) throws Exception {
+    public ResponseEntity<Object> getAllSubDepartmentsByBIDAndDID(@PathVariable("bid") String bid, @PathVariable("did") String did) throws Exception {
         List<SubDepartmentModel> subDepartmentModelList ;
         try{
 

@@ -31,11 +31,10 @@ public class EmployeeController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllEmployees(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
+    public ResponseEntity<Object> getAllEmployeesByIDS(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO;
         try{
-            System.out.println("Branch ID: " + bID);
-            System.out.println("Department ID: " +dID);
+
 
             employeeGetDetailsBankDTO  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));
 
@@ -77,7 +76,7 @@ public class EmployeeController {
     @RequestMapping(value = "/employees/birthday" , method = RequestMethod.GET)
     public ResponseEntity<Object> getEmployeeBirht() throws Exception {
 
-        EmployeesBirthDayList employeesBirthDayList;
+        List<EmployeesBirthDayList> employeesBirthDayList;
 
         try{
 
@@ -109,6 +108,26 @@ public class EmployeeController {
         }
 
         return new ResponseEntity(employeePositionChangesDtos, HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getAllEmployees() throws Exception {
+
+        List<EmployeeModel> employeeModels;
+
+        try{
+
+            employeeModels  = employeeService.getAllEmployee();
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(employeeModels, HttpStatus.OK);
 
 
 
@@ -158,42 +177,39 @@ public class EmployeeController {
     }
 
 
-//    @CrossOrigin(origins = "*", allowedHeaders = "*")
-//    @RequestMapping(value = "/employees/edit/{id}" , method = RequestMethod.POST)
-//    public ResponseEntity<Object> editEmployee(@RequestBody EmployeeSaveDto employee,@PathVariable("id") String id) throws Exception {
-//        try{
-//            String str = employee.getBirthDay();
-//            String result = str.substring(5);
-//            result = result.replaceAll("-", "");
-//
-//            EmployeeModel employeeModel = new EmployeeModel();
-//            employeeModel.setBirhtDate(employee.getBirthDay());
-//            employeeModel.setBranchId(employee.getBranchId());
-//            employeeModel.setFilterBirth(result);
-//            employeeModel.setBirhtDate(employee.getBirthDay());
-//            employeeModel.setEmail(employee.getEmail());
-//            employeeModel.setInternalNumber(employee.getInternalNum());
-//            employeeModel.setName(employee.getName());
-//            employeeModel.setPhoneNumber(employee.getNumber());
-//            employeeModel.setPhotoBase64(employee.getPhoto());
-//            employeeModel.setPosition(employee.getPosition());
-//            employeeModel.setStartJobDate(employee.getStartDate());
-//            employeeModel.setSurname(employee.getSurname());
-//            employeeModel.setSubDepartment(employee.getSubDepartId());
-//            employeeModel.setDepartmentId(employee.getDepartId());
-//
-//            employeeService.save(employeeModel);
-//
-//        }catch (Exception e){
-//            throw new Exception(e.getMessage());
-//        }
-//
-//        return new ResponseEntity("DONE", HttpStatus.OK);
-//
-//
-//
-//    }
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees/edit/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> editEmployee(@RequestBody EmployeeEditDto employee,@PathVariable("id") String id) throws Exception {
+        try{
+         employeeService.edit(employee,Integer.parseInt(id));
 
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees/remove/{id}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> remoceEmployee(@PathVariable("id") String id) throws Exception {
+        try{
+            employeeService.remove(Integer.parseInt(id));
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
 
 
 

@@ -13,6 +13,9 @@ public interface NotificationOnHomePageRepository extends CrudRepository<Notific
 List<NotificationOnHomePageModel> findAllByFilterDateAndStatus(String date, int id);
     List<NotificationOnHomePageModel> findAllByStatus(int status);
 
+    List<NotificationOnHomePageModel> findAll();
+
+
 
 
 

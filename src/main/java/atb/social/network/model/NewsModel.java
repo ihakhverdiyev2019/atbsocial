@@ -1,10 +1,7 @@
 package atb.social.network.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class NewsModel {
@@ -17,12 +14,25 @@ public class NewsModel {
 
     private String title;
 
+    @Column(columnDefinition="TEXT")
     private String photo;
 
     private String text;
 
+    private String date;
+
+
+
 
     public NewsModel() {
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public int getId() {

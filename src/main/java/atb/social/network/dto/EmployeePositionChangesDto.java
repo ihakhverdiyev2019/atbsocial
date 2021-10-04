@@ -1,6 +1,8 @@
 package atb.social.network.dto;
 
 public class EmployeePositionChangesDto {
+
+    private int empId;
     private String name;
     private String surname;
 
@@ -11,8 +13,28 @@ public class EmployeePositionChangesDto {
     private String fPosition;
     private String lPosition;
 
+    private String fBranch;
+
+    private String fDepartment;
+
+
+    private String lBranch;
+
+    private String lDepartment;
+
+    private String photo;
+
 
     public EmployeePositionChangesDto() {
+    }
+
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
     }
 
     public String getName() {
@@ -63,4 +85,43 @@ public class EmployeePositionChangesDto {
         this.lPosition = lPosition;
     }
 
+    public String getfBranch() {
+        return fBranch;
+    }
+
+    public void setfBranch(String fBranch) {
+        this.fBranch = fBranch;
+    }
+
+    public String getfDepartment() {
+        return fDepartment;
+    }
+
+    public void setfDepartment(String fDepartment) {
+        this.fDepartment = fDepartment;
+    }
+
+    public String getlBranch() {
+        return lBranch;
+    }
+
+    public void setlBranch(String lBranch) {
+        this.lBranch = lBranch;
+    }
+
+    public String getlDepartment() {
+        return lDepartment;
+    }
+
+    public void setlDepartment(String lDepartment) {
+        this.lDepartment = lDepartment;
+    }
+
+    public String getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(String photo) {
+        this.photo = photo;
+    }
 }

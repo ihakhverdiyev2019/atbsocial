@@ -19,13 +19,56 @@ public class EmployeeEditHistory {
 
     private int fPosition;
 
+    private int fBranch;
+
+    private int fDepartment;
+
+
+    private int lBranch;
+
+    private int lDepartment;
+
     private int lPosition;
 
     private String dateWithoutYear;
 
     private String status;
 
+
+
     public EmployeeEditHistory() {
+    }
+
+    public int getfBranch() {
+        return fBranch;
+    }
+
+    public void setfBranch(int fBranch) {
+        this.fBranch = fBranch;
+    }
+
+    public int getfDepartment() {
+        return fDepartment;
+    }
+
+    public void setfDepartment(int fDepartment) {
+        this.fDepartment = fDepartment;
+    }
+
+    public int getlBranch() {
+        return lBranch;
+    }
+
+    public void setlBranch(int lBranch) {
+        this.lBranch = lBranch;
+    }
+
+    public int getlDepartment() {
+        return lDepartment;
+    }
+
+    public void setlDepartment(int lDepartment) {
+        this.lDepartment = lDepartment;
     }
 
     public int getId() {

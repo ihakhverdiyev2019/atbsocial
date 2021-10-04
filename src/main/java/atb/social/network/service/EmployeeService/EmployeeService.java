@@ -11,10 +11,15 @@ public interface EmployeeService {
 
     EmployeeDto getEmployeeDetails(int employeeId) throws Exception;
 
-    EmployeesBirthDayList getEmployeeBirth() throws Exception;
+    List<EmployeesBirthDayList> getEmployeeBirth() throws Exception;
+
+    List<EmployeeModel> getAllEmployee( ) throws Exception;
 
     void save(EmployeeModel employeeModel) throws Exception;
 
-    void edit(EmployeeSaveDto employeeDto, int id, int checkBox) throws Exception;
+    void edit(EmployeeEditDto employeeDto, int id) throws Exception;
+
+
+    void remove( int id) throws Exception;
 
 }

@@ -32,8 +32,7 @@ public class NewsController {
     public ResponseEntity<Object> getAllNews(@RequestParam String count,@RequestParam String page) throws Exception {
         List<NewsModel> allNews;
         try{
-            System.out.println(count);
-            System.out.println(page);
+
 
             allNews  = newsService.getAllNews(Integer.parseInt(count),Integer.parseInt(page));
 
@@ -110,7 +109,7 @@ public class NewsController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/news/save" , method = RequestMethod.POST)
-    public ResponseEntity<Object> removeNews(@RequestBody NewsDTO newsDTO) throws Exception {
+    public ResponseEntity<Object> saveNews(@RequestBody NewsDTO newsDTO) throws Exception {
 
         try{
 

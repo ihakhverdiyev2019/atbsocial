@@ -41,8 +41,7 @@ public class CanteenServiceImpl implements CanteenService{
             }
 
             HashSet<Integer> hset = new HashSet<>(categoryId);
-            System.out.println(hset.size());
-            System.out.println(hset);
+
 
             for(Integer strNumber : hset) {
                 CanteenDto canteenDto = new CanteenDto();

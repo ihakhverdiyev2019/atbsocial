@@ -26,6 +26,9 @@ public class EmployeeModel {
 
     private int subDepartment;
 
+
+    private String positionName;
+
     private int position;
     @Nullable
 
@@ -49,6 +52,14 @@ public class EmployeeModel {
 
     public EmployeeModel(){
 
+    }
+
+    public String getPositionName() {
+        return positionName;
+    }
+
+    public void setPositionName(String positionName) {
+        this.positionName = positionName;
     }
 
     public String getFilterBirth() {

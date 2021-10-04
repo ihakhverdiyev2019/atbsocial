@@ -28,10 +28,6 @@ public class BranchTimeServiceImpl implements BranchTimeService{
         try{
 
             branchTimeModels = branchTimeRepository.findAll();
-
-
-
-
             studlistGrouped =
                     branchTimeModels.stream().collect(Collectors.groupingBy(w -> w.getBranchName()));
 
