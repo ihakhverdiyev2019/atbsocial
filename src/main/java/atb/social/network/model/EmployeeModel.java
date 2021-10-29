@@ -173,4 +173,13 @@ public class EmployeeModel {
     public void setPhotoBase64(String photoBase64) {
         this.photoBase64 = photoBase64;
     }
+
+    @Transient
+    public String getPhotosImagePath() {
+        if(photoBase64==null)
+            return null;
+
+        return "/user-photos/" + id + "/" + photoBase64;
+    }
+
 }

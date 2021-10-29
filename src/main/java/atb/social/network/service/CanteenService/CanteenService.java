@@ -1,5 +1,6 @@
 package atb.social.network.service.CanteenService;
 
+import atb.social.network.dto.CanteenDetailsDto;
 import atb.social.network.dto.CanteenDto;
 import atb.social.network.dto.CanteenRequestDTO;
 import atb.social.network.dto.CategoryDTO;
@@ -11,7 +12,7 @@ import java.util.List;
 public interface CanteenService {
 
 
-    List<CanteenDto> getCanteenData() throws Exception;
+    CanteenDetailsDto getCanteenData() throws Exception;
 
     List<MealCategory> getCategory( ) throws  Exception;
 

@@ -13,9 +13,13 @@
 	<artifactId>network</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>network</name>
+	<packaging>jar</packaging>
 	<description>Social Network for ATB</description>
 	<properties>
 		<java.version>11</java.version>
+		<start-class>atb.social.network.NetworkApplication</start-class>
+		<tomcat.version>9.0.54</tomcat.version>
+
 	</properties>
 	<dependencies>
 		<dependency>
@@ -28,6 +32,12 @@
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
 			<version>42.2.23</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
 		</dependency>
 
 		<dependency>
@@ -53,8 +63,17 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-actuator</artifactId>
 		</dependency>
 	</dependencies>
 
@@ -63,21 +82,7 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<configuration>
-							<artifactItems>
-								<artifactItem>
-									<groupId>com.heroku</groupId>
-									<artifactId>webapp-runner</artifactId>
-									<version>${webapp-runner.version}</version>
-									<destFileName>webapp-runner.jar</destFileName>
-								</artifactItem>
-							</artifactItems>
-						</configuration>
-					</execution>
-				</executions>
+
 			</plugin>
 		</plugins>
 	</build>

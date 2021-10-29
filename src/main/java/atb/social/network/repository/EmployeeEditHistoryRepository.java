@@ -11,4 +11,6 @@ import java.util.List;
 public interface EmployeeEditHistoryRepository extends CrudRepository<EmployeeEditHistory,Integer> {
 
     List<EmployeeEditHistory> findAllByDateWithoutYear(String date);
+
+    EmployeeEditHistory findByEmployeeId(int id);
 }

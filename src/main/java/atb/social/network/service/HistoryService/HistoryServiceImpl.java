@@ -90,7 +90,7 @@ public class HistoryServiceImpl implements HistoryService {
                 }
 
 
-                employeePositionChangesDto.setPhoto(employeeModel.getPhotoBase64());
+                employeePositionChangesDto.setPhoto(employeeModel.getPhotosImagePath());
 
                 employeePositionChangesDto.setEmpId(employeeModel.getId());
 

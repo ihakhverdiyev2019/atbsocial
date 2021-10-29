@@ -1,5 +1,8 @@
 package atb.social.network.dto;
 
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
+
 public class EmployeeSaveDto {
 
     private int branchId;
@@ -16,8 +19,6 @@ public class EmployeeSaveDto {
 
     private int position;
 
-    private String photo;
-
     private String birthDay;
 
     private String startDate;
@@ -25,6 +26,8 @@ public class EmployeeSaveDto {
     private String internalNum;
 
     private String number;
+
+
 
     public EmployeeSaveDto() {
     }
@@ -85,13 +88,7 @@ public class EmployeeSaveDto {
         this.position = position;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public String getBirthDay() {
         return birthDay;
@@ -123,5 +120,23 @@ public class EmployeeSaveDto {
 
     public void setNumber(String number) {
         this.number = number;
+    }
+
+
+    @Override
+    public String toString() {
+        return "EmployeeSaveDto{" +
+                "branchId=" + branchId +
+                ", departId=" + departId +
+                ", subDepartId=" + subDepartId +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", email='" + email + '\'' +
+                ", position=" + position +
+                ", birthDay='" + birthDay + '\'' +
+                ", startDate='" + startDate + '\'' +
+                ", internalNum='" + internalNum + '\'' +
+                ", number='" + number + '\'' +
+                '}';
     }
 }

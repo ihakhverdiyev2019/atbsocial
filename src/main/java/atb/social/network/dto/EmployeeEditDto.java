@@ -1,5 +1,8 @@
 package atb.social.network.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.commons.CommonsMultipartFile;
+
 public class EmployeeEditDto {
 
     private int branchId;
@@ -16,7 +19,6 @@ public class EmployeeEditDto {
 
     private int position;
 
-    private String photo;
 
     private String birthDay;
 
@@ -27,6 +29,8 @@ public class EmployeeEditDto {
     private String number;
 
     private int checkBox;
+
+
 
     public EmployeeEditDto() {
     }
@@ -87,13 +91,7 @@ public class EmployeeEditDto {
         this.position = position;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
 
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public String getBirthDay() {
         return birthDay;

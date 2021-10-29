@@ -13,7 +13,7 @@ public class EmployeeBriefDetailsDto {
     private String internalNumber;
     private String photo;
 
-    private int importance;
+    private double importance;
 
     public  EmployeeBriefDetailsDto(){
 
@@ -64,11 +64,11 @@ public class EmployeeBriefDetailsDto {
         return photo;
     }
 
-    public int getImportance() {
+    public double getImportance() {
         return importance;
     }
 
-    public void setImportance(int importance) {
+    public void setImportance(double importance) {
         this.importance = importance;
     }
 

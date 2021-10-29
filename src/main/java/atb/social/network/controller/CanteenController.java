@@ -1,5 +1,6 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.CanteenDetailsDto;
 import atb.social.network.dto.CanteenDto;
 import atb.social.network.dto.CanteenRequestDTO;
 import atb.social.network.dto.CategoryDTO;
@@ -28,7 +29,7 @@ public class CanteenController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/canteen" , method = RequestMethod.GET)
     public ResponseEntity<Object> getCanteenDetails() throws Exception {
-        List<CanteenDto> canteenDtoList;
+        CanteenDetailsDto canteenDtoList;
         try{
 
             canteenDtoList  = canteenService.getCanteenData();

@@ -1,21 +1,28 @@
 package atb.social.network.controller;
 
+import atb.social.network.config.HttpUtils;
 import atb.social.network.dto.*;
 
 import atb.social.network.model.EmployeeModel;
 import atb.social.network.service.EmployeeService.EmployeeService;
 import atb.social.network.service.HistoryService.HistoryService;
+import atb.social.network.service.QuoteService.QuoteService;
 import atb.social.network.service.SubDepartmentService.SubDepartmentService;
+import com.google.common.net.HttpHeaders;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import javax.servlet.http.HttpServletRequest;
+import java.net.http.HttpRequest;
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/api")
-
 public class EmployeeController {
 
     @Autowired
@@ -27,13 +34,18 @@ public class EmployeeController {
     @Autowired
     private HistoryService historyService;
 
+    @Autowired
+    private QuoteService quoteService;
+
+
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{branchId}/{depId}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllEmployeesByIDS(@PathVariable("branchId") String bID, @PathVariable("depId") String dID) throws Exception {
+    public ResponseEntity<Object> getAllEmployeesByIDS(@PathVariable("branchId") String bID, @PathVariable("depId") String dID, HttpServletRequest httpRequest) throws Exception {
         EmployeeGetDetailsBankDTO employeeGetDetailsBankDTO;
         try{
+
 
 
             employeeGetDetailsBankDTO  = employeeService.getEmployeeBrief(Integer.parseInt(bID),Integer.parseInt(dID));
@@ -52,11 +64,13 @@ public class EmployeeController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/{empId}" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getEmployeeDetails(@PathVariable("empId") String empId) throws Exception {
+    public ResponseEntity<Object> getEmployeeDetails(@PathVariable("empId") String empId,HttpServletRequest httpRequest) throws Exception {
         EmployeeDto employeeDto = null;
+        String userIp = httpRequest.getHeaders("X-Real-IP").nextElement();
+
         try{
 
-            employeeDto  = employeeService.getEmployeeDetails(Integer.parseInt(empId));
+            employeeDto  = employeeService.getEmployeeDetails(Integer.parseInt(empId),userIp);
 
 
 
@@ -75,6 +89,7 @@ public class EmployeeController {
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/birthday" , method = RequestMethod.GET)
     public ResponseEntity<Object> getEmployeeBirht() throws Exception {
+
 
         List<EmployeesBirthDayList> employeesBirthDayList;
 
@@ -113,11 +128,52 @@ public class EmployeeController {
 
     }
 
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees/congrat-details/{id}" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getEmployeeCongrats(@PathVariable("id") String id) throws Exception {
+
+        List<CongratsResponse> congratsResponses;
+
+        try{
+
+            congratsResponses  = employeeService.getCongrats(Integer.parseInt(id));
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(congratsResponses, HttpStatus.OK);
+
+
+
+    }
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/employees/congrat/{empid}/{toId}" , method = RequestMethod.POST)
+    public ResponseEntity<Object> congratEmployee(@PathVariable("empid") String empid,@PathVariable("toId") String toId, HttpServletRequest httpServletRequest) throws Exception {
+        String userIp = httpServletRequest.getHeaders("X-Real-IP").nextElement();
+
+
+        try{
+
+             employeeService.congrat(Integer.parseInt(empid),Integer.parseInt(toId),userIp);
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees" , method = RequestMethod.GET)
-    public ResponseEntity<Object> getAllEmployees() throws Exception {
+    public ResponseEntity<Object> getAllEmployees(HttpServletRequest httpRequest) throws Exception {
 
-        List<EmployeeModel> employeeModels;
+        Set<EmployeeModel> employeeModels;
+
+
 
         try{
 
@@ -136,39 +192,15 @@ public class EmployeeController {
 
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
-    @RequestMapping(value = "/employees/save" , method = RequestMethod.POST)
-    public ResponseEntity<Object> saveEmployee(@RequestBody EmployeeSaveDto employee) throws Exception {
-        try{
-            EmployeeModel employeeModel = new EmployeeModel();
+    @RequestMapping(value = "/employees/save" , method = RequestMethod.POST ,consumes =  {"multipart/form-data"} )
+    public ResponseEntity<Object> saveEmployee(@ModelAttribute EmployeeSaveDto employee,  @RequestParam(value = "photo", required = false) MultipartFile photo) throws Exception {
 
-            if(!employee.getBirthDay().equals("")) {
 
-                String str = employee.getBirthDay();
-                String result = str.substring(5);
-                result = result.replaceAll("-", "");
 
-                employeeModel.setBirhtDate(employee.getBirthDay());
-                employeeModel.setFilterBirth(result);
 
-            }
-            employeeModel.setBranchId(employee.getBranchId());
-            employeeModel.setBirhtDate(employee.getBirthDay());
-            employeeModel.setEmail(employee.getEmail());
-            employeeModel.setInternalNumber(employee.getInternalNum());
-            employeeModel.setName(employee.getName());
-            employeeModel.setPhoneNumber(employee.getNumber());
-            employeeModel.setPhotoBase64(employee.getPhoto());
-            employeeModel.setPosition(employee.getPosition());
-            employeeModel.setStartJobDate(employee.getStartDate());
-            employeeModel.setSurname(employee.getSurname());
-            employeeModel.setSubDepartment(employee.getSubDepartId());
-            employeeModel.setDepartmentId(employee.getDepartId());
+        employeeService.save(employee,photo);
 
-          employeeService.save(employeeModel);
 
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
 
         return new ResponseEntity("DONE", HttpStatus.OK);
 
@@ -179,13 +211,13 @@ public class EmployeeController {
 
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/employees/edit/{id}" , method = RequestMethod.POST)
-    public ResponseEntity<Object> editEmployee(@RequestBody EmployeeEditDto employee,@PathVariable("id") String id) throws Exception {
-        try{
-         employeeService.edit(employee,Integer.parseInt(id));
+    public ResponseEntity<Object> editEmployee(@ModelAttribute EmployeeEditDto employee,@PathVariable("id") String id, @RequestParam(value = "photo", required = false) MultipartFile photo
+    ) throws Exception {
 
-        }catch (Exception e){
-            throw new Exception(e.getMessage());
-        }
+
+
+          employeeService.edit(employee,Integer.parseInt(id), photo);
+
 
         return new ResponseEntity("DONE", HttpStatus.OK);
 

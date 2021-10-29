@@ -1,5 +1,6 @@
 package atb.social.network.controller;
 
+import atb.social.network.dto.CounterDTO;
 import atb.social.network.dto.QuoteDTO;
 import atb.social.network.model.NewsModel;
 import atb.social.network.model.QuoteModel;
@@ -9,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+
 @RestController
 @RequestMapping("/api")
 
@@ -17,6 +20,7 @@ public class QuoteController {
     @Autowired
     private QuoteService quoteService;
 
+
     @CrossOrigin(origins = "*", allowedHeaders = "*")
     @RequestMapping(value = "/quote" , method = RequestMethod.GET)
     public ResponseEntity<Object> getQuote() throws Exception {
@@ -24,6 +28,7 @@ public class QuoteController {
         try{
 
             quoteModel  = quoteService.getQuote();
+
 
 
         }catch (Exception e){
@@ -54,6 +59,40 @@ public class QuoteController {
         }
 
         return new ResponseEntity("DONE", HttpStatus.OK);
+
+
+
+    }
+
+
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/count" , method = RequestMethod.GET)
+    public void countUser(HttpServletRequest httpServletRequest) {
+        String userIp = httpServletRequest.getHeaders("X-Real-IP").nextElement();
+
+            quoteService.saveIp(userIp);
+
+
+    }
+
+
+    @CrossOrigin(origins = "*", allowedHeaders = "*")
+    @RequestMapping(value = "/counter" , method = RequestMethod.GET)
+    public ResponseEntity<Object> getCounter() throws Exception {
+
+        CounterDTO result;
+        try{
+
+
+            result = quoteService.getUniqueIp();
+
+        }catch (Exception e){
+            throw new Exception(e.getMessage());
+        }
+
+        return new ResponseEntity(result, HttpStatus.OK);
 
 
 

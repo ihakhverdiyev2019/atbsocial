@@ -22,7 +22,7 @@ public class PositionModel {
 
     private int subDepartId;
 
-    private int importance;
+    private double importance;
 
     public PositionModel() {
     }
@@ -67,11 +67,11 @@ public class PositionModel {
         this.subDepartId = subDepartId;
     }
 
-    public int getImportance() {
+    public double getImportance() {
         return importance;
     }
 
-    public void setImportance(int importance) {
+    public void setImportance(double importance) {
         this.importance = importance;
     }
 }

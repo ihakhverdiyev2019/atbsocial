@@ -3,7 +3,6 @@ package atb.social.network.dto;
 public class NewsDTO {
     private String title;
 
-    private String photo;
 
     private String text;
 
@@ -18,13 +17,6 @@ public class NewsDTO {
         this.title = title;
     }
 
-    public String getPhoto() {
-        return photo;
-    }
-
-    public void setPhoto(String photo) {
-        this.photo = photo;
-    }
 
     public String getText() {
         return text;

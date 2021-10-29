@@ -1,6 +1,7 @@
 package atb.social.network.service.CanteenService;
 
 
+import atb.social.network.dto.CanteenDetailsDto;
 import atb.social.network.dto.CanteenDto;
 import atb.social.network.dto.CanteenRequestDTO;
 import atb.social.network.dto.CategoryDTO;
@@ -11,7 +12,9 @@ import atb.social.network.repository.MealRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 
@@ -24,11 +27,14 @@ public class CanteenServiceImpl implements CanteenService{
     @Autowired
     private MealRepository mealRepository;
 
+    private String date;
+
 
     @Override
-    public List<CanteenDto> getCanteenData() throws Exception {
+    public CanteenDetailsDto getCanteenData() throws Exception {
         List<CanteenDto> canteenDtos = new ArrayList<>();
         List<Integer> categoryId = new ArrayList<>();
+        CanteenDetailsDto canteenDetailsDto = new CanteenDetailsDto();
 
 
         try{
@@ -53,6 +59,10 @@ public class CanteenServiceImpl implements CanteenService{
 
             }
 
+            canteenDetailsDto.setCanteenDtos(canteenDtos);
+            canteenDetailsDto.setDate(date);
+
+
 
 
 
@@ -61,7 +71,7 @@ public class CanteenServiceImpl implements CanteenService{
         }
 
 
-        return canteenDtos;
+        return canteenDetailsDto;
     }
 
 
@@ -70,11 +80,16 @@ public class CanteenServiceImpl implements CanteenService{
 
         try{
             MealModel mealModel = new MealModel();
+
             mealModel.setCategoryId(canteenRequestDTO.getCategoryId());
             mealModel.setMealName(canteenRequestDTO.getName());
             mealModel.setPrice(canteenRequestDTO.getPrice());
 
             mealRepository.save(mealModel);
+            String pattern = "dd.MM.yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+            date = simpleDateFormat.format(new Date());
 
 
 
@@ -99,6 +114,7 @@ public class CanteenServiceImpl implements CanteenService{
 
 
 
+
         }
         catch (Exception e){
             throw  new Exception(e.getMessage());
@@ -116,6 +132,10 @@ public class CanteenServiceImpl implements CanteenService{
             mealModel.setPrice(canteenRequestDTO.getPrice());
 
             mealRepository.save(mealModel);
+            String pattern = "dd.MM.yyyy";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+
+            date = simpleDateFormat.format(new Date());
 
 
 

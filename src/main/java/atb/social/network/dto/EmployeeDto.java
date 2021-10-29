@@ -2,6 +2,7 @@ package atb.social.network.dto;
 
 public class EmployeeDto {
 
+    private int empId;
     private String name;
 
     private String surname;
@@ -26,8 +27,28 @@ public class EmployeeDto {
 
     private String photo;
 
+    private int isBirth;
+
+    private int canCongrat;
+
     public EmployeeDto(){
 
+    }
+
+    public int getEmpId() {
+        return empId;
+    }
+
+    public void setEmpId(int empId) {
+        this.empId = empId;
+    }
+
+    public int getIsBirth() {
+        return isBirth;
+    }
+
+    public void setIsBirth(int isBirth) {
+        this.isBirth = isBirth;
     }
 
     public String getName() {
@@ -124,5 +145,13 @@ public class EmployeeDto {
 
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    public int getCanCongrat() {
+        return canCongrat;
+    }
+
+    public void setCanCongrat(int canCongrat) {
+        this.canCongrat = canCongrat;
     }
 }
